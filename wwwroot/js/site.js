@@ -28,13 +28,14 @@ function saveCart(cart) {
     // localStorage.setItem() salvează o pereche cheie/valoare care persistă după reîncărcarea paginii
 }
 
-// addToCart(name, price) — adaugă un produs în coș sau îi crește cantitatea
+// addToCart(name, price, imageUrl) — adaugă un produs în coș sau îi crește cantitatea
 // name: numele produsului (string)
 // price: prețul produsului (număr, ex: 29.99)
-function addToCart(name, price) {
+// imageUrl: URL-ul imaginii produsului (string, opțional)
+function addToCart(name, price, imageUrl) {
     // Încărcăm coșul curent din localStorage
     const cart = getCart();
-    // cart este acum un array de obiecte { name, price, quantity }
+    // cart este acum un array de obiecte { name, price, quantity, imageUrl }
 
     // Verificăm dacă produsul este deja în coș
     const existingItem = cart.find(item => item.name === name);
@@ -47,7 +48,7 @@ function addToCart(name, price) {
         // += 1 incrementează cantitatea (ex: 1 → 2 → 3)
     } else {
         // Produs nou — îl adăugăm ca articol proaspăt cu cantitatea 1
-        cart.push({ name: name, price: price, quantity: 1 });
+        cart.push({ name: name, price: price, quantity: 1, imageUrl: imageUrl || '/images/default.png' });
         // .push() adaugă un obiect nou la SFÂRŞITUL array-ului
     }
 
@@ -222,7 +223,10 @@ function showCart() {
         // Creăm HTML-ul pentru un rând de articol din coș
         html += `
             <div class="cart-item-row">
-                <!-- Fiecare rând din coș conține: detalii, controale cantitate, total, buton eliminare -->
+                <!-- Fiecare rând din coș conține: imagine, detalii, controale cantitate, total, buton eliminare -->
+
+                <img class="cart-item-image" src="${item.imageUrl || '/images/default.png'}" alt="${item.name}" onerror="this.src='/images/default.png'" />
+                <!-- Imaginea produsului în coș -->
 
                 <div class="cart-item-details">
                     <!-- Numele și prețul unitar al produsului -->

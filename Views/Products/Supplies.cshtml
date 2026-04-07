@@ -155,8 +155,8 @@
                         @* Prețul cu 2 zecimale și moneda *@
 
                         <button class="btn btn-add-cart"
-                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture))">
-                            @* addToCart() este apelat cu numele și prețul produsului *@
+                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture), '@product.ImageUrl')">
+                            @* addToCart() este apelat cu numele, prețul și URL-ul imaginii produsului *@
                             <i class="fas fa-cart-plus"></i> Adauga
                         </button>
 

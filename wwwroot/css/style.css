@@ -465,15 +465,19 @@ img {
     position: relative;                 /* Necesar pentru poziționarea absolută a badge-ului */
     height: 200px;                      /* Înălțime fixă pentru toate imaginile produselor */
     overflow: hidden;                   /* Ascundem overflow dacă imaginea este mai mare */
-    background-color: var(--gray-100);  /* Fundal gri deschis placeholder */
+    background-color: #ffffff;          /* Fundal alb pentru imagini cu contain */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Elementul <img> al produsului */
 .product-image img {
     width: 100%;                    /* Umple lățimea completă a containerului */
     height: 100%;                   /* Umple înălțimea completă a containerului */
-    object-fit: cover;              /* Decupăm imaginea pentru a acoperi zona fără distorsiune */
+    object-fit: contain;            /* Afișăm imaginea complet fără decupare */
     transition: var(--transition);  /* Efect zoom lin la hover */
+    padding: 8px;                   /* Spațiu mic în jurul imaginii */
 }
 
 /* Zoom pe imagine când cardul este hoverat */
@@ -1086,6 +1090,17 @@ img {
     color: var(--gray-900);
     min-width: 80px;
     text-align: right;
+}
+
+/* Imaginea produsului în rândul coșului */
+.cart-item-image {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: var(--gray-100);
+    flex-shrink: 0;
+    padding: 4px;
 }
 
 /* Butonul de eliminare (iconița coș de gunoi) */

@@ -22,18 +22,17 @@ public class HomeController : Controller
         var popularProducts = new List<Product>
         {
             // Fiecare 'new Product { ... }' creează un obiect produs cu proprietățile completate
-            new Product { Id = 1, Name = "Manual Matematica Clasa 9", Price = 32.99m, Category = "Carti", SubCategory = "Clasa 9", ImageUrl = "/images/book_math.png", Description = "Manual complet de matematica pentru clasa a 9-a" },
-            // 'm' după număr indică C# că este o valoare decimală (sigură pentru bani), nu float
+            new Product { Id = 1, Name = "Manual Matematica Clasa 9", Price = 32.99m, Category = "Carti", SubCategory = "Clasa 9", ImageUrl = "/images/manual4.jpg", Description = "Manual complet de matematica pentru clasa a 9-a" },
 
-            new Product { Id = 2, Name = "Caiet A4 100 file", Price = 8.50m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/notebook.png", Description = "Caiet cu linii pentru scoala" },
+            new Product { Id = 2, Name = "Caiet A4 100 file", Price = 8.50m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/caiet_a4_dictando.png", Description = "Caiet cu linii pentru scoala" },
 
-            new Product { Id = 3, Name = "Manual Romana Clasa 10", Price = 28.99m, Category = "Carti", SubCategory = "Clasa 10", ImageUrl = "/images/book_ro.png", Description = "Manual de limba romana pentru clasa a 10-a" },
+            new Product { Id = 3, Name = "Manual Romana Clasa 12", Price = 34.99m, Category = "Carti", SubCategory = "Clasa 12", ImageUrl = "/images/manual7.jpg", Description = "Manual de limba romana pentru clasa a 12-a" },
 
             new Product { Id = 4, Name = "Set Creioane Colorate 24 buc", Price = 15.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/crayons.png", Description = "Set de creioane colorate pentru copii" },
 
-            new Product { Id = 5, Name = "Culegere BAC Matematica", Price = 39.99m, Category = "Carti", SubCategory = "BAC", ImageUrl = "/images/book_bac.png", Description = "Culegere cu teste pentru examenul de bacalaureat" },
+            new Product { Id = 5, Name = "Culegere BAC Matematica M1", Price = 39.99m, Category = "Carti", SubCategory = "BAC", ImageUrl = "/images/culegere2.jpg", Description = "Culegere cu teste pentru examenul de bacalaureat" },
 
-            new Product { Id = 6, Name = "Ghiozdan Ergonomic", Price = 125.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/backpack.png", Description = "Ghiozdan ergonomic cu multiple compartimente" }
+            new Product { Id = 6, Name = "Ghiozdan Ergonomic Gimnaziu", Price = 125.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/ghiozdan2.jpg", Description = "Ghiozdan ergonomic cu multiple compartimente" }
         };
 
         // Transmitem lista de produse populare către view-ul Index

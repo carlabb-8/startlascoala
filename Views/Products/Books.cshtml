@@ -137,7 +137,7 @@
                         @* Prețul formatat cu 2 zecimale și unitatea Lei *@
 
                         <button class="btn btn-add-cart"
-                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture))">
+                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture), '@product.ImageUrl')">
                             @* Apelează addToCart() JS — scăpăm apostrofele pentru a nu strica JavaScript *@
                             <i class="fas fa-cart-plus"></i> Adauga
                             @* Buton "Adaugă" cu iconiță coș+ *@

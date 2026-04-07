@@ -165,8 +165,8 @@
                         @* .ToString("F2") înseamnă "2 zecimale fixe", ex. "32.99" *@
 
                         <button class="btn btn-add-cart"
-                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture))">
-                            @* onclick apelează addToCart() JavaScript cu numei și prețul *@
+                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture), '@product.ImageUrl')">
+                            @* onclick apelează addToCart() JavaScript cu numel și prețul *@
                             @* Html.Raw previne codificarea HTML a caracterelor speciale *@
                             @* Replace("'", "\\'") scapă apostrofele ca JS să nu se strice *@
                             @* InvariantCulture asigură că prețul folosește punct (.) nu virgulă (,) *@

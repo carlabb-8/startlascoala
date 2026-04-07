@@ -952,6 +952,11 @@ img {
     align-items: start;                 /* Aliniem ambele coloane la vârfurile lor */
 }
 
+/* Când coșul este gol, afisăm mesajul centrat pe toată lățimea paginii */
+.cart-layout:has(#emptyCart:not([style*="none"])) {
+    display: block;             /* Ocupă toată lățimea — fără grid cu două coloane */
+}
+
 /* ---- Mesaj coș gol ---- */
 .empty-cart {
     text-align: center;
@@ -959,6 +964,8 @@ img {
     background: var(--bg-white);
     border-radius: var(--radius-md);
     border: 1px solid var(--border);
+    max-width: 600px;           /* Lățime maximă pentru aspectul centrului */
+    margin: 0 auto;             /* Centrăm orizontal pe pagină */
 }
 
 /* Emoji mare coș în starea goală */
@@ -1494,12 +1501,11 @@ img {
     margin: 0 auto;
 }
 
-/* Layout pe două coloane pe pagina despre noi */
+/* Layout poveste: acum o singură coloană centrată — ilustrația a fost eliminată */
 .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Două coloane egale */
-    gap: 3rem;
-    align-items: center;
+    display: block;             /* Coloană unică — nu mai este nevoie de grid */
+    max-width: 760px;           /* Lățime maximă pentru lizibilitate */
+    margin: 0 auto;             /* Centrăm textul pe pagină */
 }
 
 /* Coloana de text */

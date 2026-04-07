@@ -284,50 +284,85 @@ function showCart() {
 // searchProducts() filtrează cardurile de produse după textul căutării
 // ============================================================
 
-// searchProducts() — filtrează cardurile de produse vizibile după nume
-// Apelată prin onkeyup pe input-ul de căutare din navbar
+// searchProducts() — filtrează cardurile de produse vizibile după cuvinte cheie
+// Suportă interogări cu mai multe cuvinte (ex: "carti bac") și caută în nume, categorie și subcategorie
 function searchProducts() {
-    // Obt̆inem textul scris în câmpul de căutare
     const searchInput = document.getElementById('searchInput');
-    // getElementById() găsește elementul input de căutare
-
     if (!searchInput) return;
-    // Dacă input-ul de căutare nu există pe această pagină, oprim
 
-    // Convertește textul căutării la litere mici pentru comparare insensibilă la majuscule
     const query = searchInput.value.toLowerCase().trim();
-    // .toLowerCase() face ca "Carte" și "carte" să se potrivească
-    // .trim() elimină spațiile de la început și sfârșit
+    // Împărțim interogarea în cuvinte individuale (ex: "carti bac" → ["carti", "bac"])
+    const words = query.split(/\s+/).filter(w => w.length > 0);
 
-    // Obt̆inem toate cardurile de produse de pe pagina curentă
     const cards = document.querySelectorAll('.product-card');
-    // querySelectorAll returnează TOATE elementele cu clasa "product-card"
 
     let visibleCount = 0;
-    // Urmărim câte carduri sunt încă vizibile (pentru mesajul de niciun rezultat)
 
-    // Parcurgem fiecare card de produs
     cards.forEach(card => {
-        // Obt̆inem atributul data-name al acestui card (setat în Razor/HTML)
-        const name = card.getAttribute('data-name') || '';
-        // || '' furnizează string gol de rezervă dacă atributul lipsește
+        const name        = card.getAttribute('data-name')        || '';
+        const category    = card.getAttribute('data-category')    || '';
+        const subcategory = card.getAttribute('data-subcategory') || '';
+        // Combinăm toate câmpurile căutabile într-un singur text
+        const searchText  = name + ' ' + category + ' ' + subcategory;
 
-        // Obt̆inem categoria pentru potrivire mai largă
-        const category = card.getAttribute('data-category') || '';
+        // Fiecare cuvânt trebuie să apară în cel puțin unul dintre câmpuri
+        const matches = words.length === 0 || words.every(word => searchText.includes(word));
 
-        // Verificăm dacă interogarea de căutare apare în nume SAU categorie
-        if (query === '' || name.includes(query) || category.includes(query)) {
-            // Interogare goală arată tot; includes() verifică dacă interogarea este un substring
-            card.style.display = '';    // Arătăm cardul (eliminăm display:none)
+        if (matches) {
+            card.style.display = '';
             visibleCount++;
-            // Inclementăm contorul cardurilor vizibile
         } else {
-            card.style.display = 'none'; // Ascundem cardurile care nu corespund căutării
+            card.style.display = 'none';
         }
     });
 
-    // Arătăm sau ascundem mesajul "niciun rezultat"
     checkNoResults(visibleCount);
+}
+
+// handleSearchEnter() — la apăsarea Enter, redirecționează către pagina corectă de produse
+// dacă nu suntem deja pe o pagină cu produse, sau aplică filtrul dacă suntem
+function handleSearchEnter(event) {
+    if (event.key !== 'Enter') return;
+
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    const cards = document.querySelectorAll('.product-card');
+
+    // Dacă suntem pe o pagină cu carduri de produse, filtrăm direct
+    if (cards.length > 0) {
+        searchProducts();
+        return;
+    }
+
+    // Nu suntem pe o pagină de produse — redirecționăm
+    // Cuvinte cheie asociate rechizitelor
+    const suppliesKeywords = ['rechizit', 'caiet', 'creion', 'ghiozdan', 'penar', 'marker',
+                              'stilou', 'calculator', 'dosar', 'pixuri', 'agenda', 'plastelina'];
+    const q = query.toLowerCase();
+    const isSupplies = suppliesKeywords.some(k => q.includes(k));
+
+    if (isSupplies) {
+        window.location.href = '/Products/Supplies?q=' + encodeURIComponent(query);
+    } else {
+        window.location.href = '/Products/Books?q=' + encodeURIComponent(query);
+    }
+}
+
+// applySearchFromUrl() — citește parametrul ?q= din URL și aplică automat căutarea la încărcarea paginii
+function applySearchFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (!q) return;
+
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = q;
+        searchProducts();
+    }
 }
 
 // checkNoResults() — arată sau ascunde mesajul "fără rezultate"

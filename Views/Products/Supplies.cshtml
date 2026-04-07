@@ -189,6 +189,11 @@
     @* Extra JavaScript specific to the Supplies page *@
 
     <script>
+        // Aplicăm automat căutarea din URL-ul ?q= la încărcarea paginii
+        document.addEventListener('DOMContentLoaded', function () {
+            applySearchFromUrl();
+        });
+
         // filterCategory() — shows/hides products and age-group headers based on selection
         // category: the subcategory string to filter by, or "all" to show everything
         // btn: the clicked filter button element (to highlight it)

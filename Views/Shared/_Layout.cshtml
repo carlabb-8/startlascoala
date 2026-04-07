@@ -106,7 +106,7 @@
         <div class="navbar-search">
             <!-- Bara de căutare din dreapta navbar-ului -->
 
-            <input type="text" id="searchInput" placeholder="Cauta produse..." class="search-input" onkeyup="searchProducts()" />
+            <input type="text" id="searchInput" placeholder="Cauta produse..." class="search-input" onkeyup="searchProducts()" onkeydown="handleSearchEnter(event)" />
             <!-- Câmp text pentru căutarea produselor -->
             <!-- onkeyup="searchProducts()" apelează funcția JS la fiecare tastă apăsată -->
             <!-- placeholder afișează text ajutător când câmpul este gol -->

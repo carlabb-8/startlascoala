@@ -5,6 +5,50 @@
       "PackagePath": "staticwebassets\\css\\style.css"
     },
     {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\agenda_scolara.jpg",
+      "PackagePath": "staticwebassets\\images\\agenda_scolara.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\atlas.jpg",
+      "PackagePath": "staticwebassets\\images\\atlas.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\bac1.jpg",
+      "PackagePath": "staticwebassets\\images\\bac1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\bac2.jpg",
+      "PackagePath": "staticwebassets\\images\\bac2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\caiet_a4_dictando.png",
+      "PackagePath": "staticwebassets\\images\\caiet_a4_dictando.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\caiet_a5_spirala.jpg",
+      "PackagePath": "staticwebassets\\images\\caiet_a5_spirala.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\calculator_casio.jpg",
+      "PackagePath": "staticwebassets\\images\\calculator_casio.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\clay.png",
+      "PackagePath": "staticwebassets\\images\\clay.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\crayons.png",
+      "PackagePath": "staticwebassets\\images\\crayons.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\culegere1.jpg",
+      "PackagePath": "staticwebassets\\images\\culegere1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\culegere2.jpg",
+      "PackagePath": "staticwebassets\\images\\culegere2.jpg"
+    },
+    {
       "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\default.png",
       "PackagePath": "staticwebassets\\images\\default.png"
     },
@@ -13,8 +57,92 @@
       "PackagePath": "staticwebassets\\images\\despre-noi.png"
     },
     {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\dosar_prezentare.jpg",
+      "PackagePath": "staticwebassets\\images\\dosar_prezentare.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\en1.jpg",
+      "PackagePath": "staticwebassets\\images\\en1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\en2.jpg",
+      "PackagePath": "staticwebassets\\images\\en2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\en3.jpg",
+      "PackagePath": "staticwebassets\\images\\en3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\ghiozdan2.jpg",
+      "PackagePath": "staticwebassets\\images\\ghiozdan2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\ghiozdan_gimnaziu.png",
+      "PackagePath": "staticwebassets\\images\\ghiozdan_gimnaziu.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\ghiozdan_primar.png",
+      "PackagePath": "staticwebassets\\images\\ghiozdan_primar.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\gramatica.jpg",
+      "PackagePath": "staticwebassets\\images\\gramatica.jpg"
+    },
+    {
       "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\logo.png",
       "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual1.png",
+      "PackagePath": "staticwebassets\\images\\manual1.png"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual2.jpg",
+      "PackagePath": "staticwebassets\\images\\manual2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual3.jpg",
+      "PackagePath": "staticwebassets\\images\\manual3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual4.jpg",
+      "PackagePath": "staticwebassets\\images\\manual4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual5.jpg",
+      "PackagePath": "staticwebassets\\images\\manual5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual6.jpg",
+      "PackagePath": "staticwebassets\\images\\manual6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual7.jpg",
+      "PackagePath": "staticwebassets\\images\\manual7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\manual8.jpg",
+      "PackagePath": "staticwebassets\\images\\manual8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\markere_20_culori.jpg",
+      "PackagePath": "staticwebassets\\images\\markere_20_culori.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\penar_accesorii.jpg",
+      "PackagePath": "staticwebassets\\images\\penar_accesorii.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\pixuri.jpg",
+      "PackagePath": "staticwebassets\\images\\pixuri.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\stilou_parker.jpg",
+      "PackagePath": "staticwebassets\\images\\stilou_parker.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\texas.jpg",
+      "PackagePath": "staticwebassets\\images\\texas.jpg"
     },
     {
       "Id": "C:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\js\\site.js",

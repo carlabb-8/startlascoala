@@ -131,7 +131,7 @@
         @foreach (var product in Model)
         {
             @* Pentru fiecare produs, renderăm un card HTML *@
-            <div class="product-card" data-name="@product.Name.ToLower()" data-category="@product.Category.ToLower()">
+            <div class="product-card" data-name="@product.Name.ToLower()" data-category="@product.Category.ToLower()" data-subcategory="@product.SubCategory.ToLower()">
                 @* data-name și data-category sunt atribute personalizate folosite de JavaScript pentru filtrare *@
                 @* .ToLower() convertște textul în litere mici pentru căutare insensibilă la majuscule *@
 

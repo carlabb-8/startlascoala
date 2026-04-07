@@ -25,3 +25,4 @@ C:\Users\Carla\Desktop\magazin online v2\obj\Debug\net8.0\refint\MagazinOnline.d
 C:\Users\Carla\Desktop\magazin online v2\obj\Debug\net8.0\MagazinOnline.pdb
 C:\Users\Carla\Desktop\magazin online v2\obj\Debug\net8.0\MagazinOnline.genruntimeconfig.cache
 C:\Users\Carla\Desktop\magazin online v2\obj\Debug\net8.0\ref\MagazinOnline.dll
+C:\Users\Carla\Desktop\magazin online v2\obj\Debug\net8.0\MagazinOnline.sourcelink.json

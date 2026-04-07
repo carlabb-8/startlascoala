@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj": {}
+    "C:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj": {
+    "C:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj",
+        "projectUniqueName": "C:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj",
         "projectName": "MagazinOnline",
-        "projectPath": "c:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj",
+        "projectPath": "C:\\Users\\Carla\\Desktop\\magazin online v2\\MagazinOnline.csproj",
         "packagesPath": "C:\\Users\\Carla\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Carla\\Desktop\\magazin online v2\\obj\\",
+        "outputPath": "C:\\Users\\Carla\\Desktop\\magazin online v2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Carla\\AppData\\Roaming\\NuGet\\NuGet.Config"

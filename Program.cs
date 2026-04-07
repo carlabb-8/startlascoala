@@ -21,8 +21,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// Redirecționăm cererile HTTP către HTTPS pentru securitate
-app.UseHttpsRedirection();
+// Redirecționăm cererile HTTP către HTTPS doar în mediul local de development
+// Pe Railway și alte platforme cloud, HTTPS este gestionat de proxy-ul lor extern
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Permitem aplicației să servească fișiere statice (CSS, JavaScript, imagini) din wwwroot
 app.UseStaticFiles();
@@ -39,5 +43,9 @@ app.MapControllerRoute(
     name: "default",                        // Numele acestei rute (folosit intern)
     pattern: "{controller=Home}/{action=Index}/{id?}"); // Model: controller/acțiune/id-opțional
 
-// Pornim serverul web și începem să ascultăm cererile HTTP incoming
-app.Run();
+// Citim portul din variabila de mediu PORT (folosit de Railway și alte platforme cloud)
+// Dacă variabila PORT nu există, folosim portul implicit 5000 pe local
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+
+// Pornim serverul web și ascultăm pe portul specificat de platforma de hosting
+app.Run($"http://0.0.0.0:{port}");

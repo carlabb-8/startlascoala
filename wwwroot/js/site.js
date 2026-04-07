@@ -166,8 +166,9 @@ function updateCartCount() {
 // showCart() — randează coșul de cumpărături pe pagina coșului
 // Citește datele din localStorage și construiește HTML-ul dinamic
 function showCart() {
-    // Obt̆inem elementele pe care le vom arată sau ascunde în funcție de starea coșului
+    // Obținem elementele pe care le vom arăta sau ascunde în funcție de starea coșului
     const emptyCart = document.getElementById('emptyCart');
+    const cartLayout = document.getElementById('cartLayout');   // Grid-ul cu două coloane
     const cartItemsList = document.getElementById('cartItemsList');
     const cartSummary = document.getElementById('cartSummary');
     const cartItemsContent = document.getElementById('cartItemsContent');
@@ -180,15 +181,15 @@ function showCart() {
     const cart = getCart();
 
     if (cart.length === 0) {
-        // Coșul este gol — aratăm mesajul de coș gol
-        emptyCart.style.display = 'block';       // Aratăm div-ul de stare goală
-        cartItemsList.style.display = 'none';    // Ascundem lista de articole
-        cartSummary.style.display = 'none';      // Ascundem panoul de rezumat
+        // Coșul este gol — arătăm mesajul centrat și ascundem întregul grid
+        emptyCart.style.display = 'block';       // Arătăm div-ul de stare goală
+        if (cartLayout) cartLayout.style.display = 'none'; // Ascundem grid-ul cu două coloane
         return; // Nu mai avem ce randat
     }
 
-    // Coșul are articole — ascundem starea goală și aratăm articolele + rezumatul
+    // Coșul are articole — ascundem starea goală și arătăm grid-ul cu articole + rezumat
     emptyCart.style.display = 'none';           // Ascundem mesajul coș gol
+    if (cartLayout) cartLayout.style.display = 'grid'; // Arătăm grid-ul cu două coloane
     cartItemsList.style.display = 'block';      // Arătăm div-ul cu articolele coșului
     cartSummary.style.display = 'block';        // Arătăm panoul de rezumat
 

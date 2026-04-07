@@ -24,42 +24,40 @@
 <!-- ==================== ZONA CONȚINUT COȘ ==================== -->
 <section class="cart-section">
 
-    <div class="cart-layout">
+    <!-- Mesaj coș gol — în afara grid-ului, centrat pe toată lățimea paginii -->
+    <div id="emptyCart" class="empty-cart">
+        <!-- id="emptyCart" — JavaScript arată/ascunde acest div -->
+
+        <div class="empty-cart-icon">🛒</div>
+        <!-- Iconița emoji coș -->
+
+        <h2>Cosul tau este gol</h2>
+        <!-- Titlul: "Coșul tău este gol" -->
+
+        <p>Nu ai adaugat niciun produs inca. Exploreaza catalogul nostru!</p>
+        <!-- Îndemn de a explora produsele -->
+
+        <div class="empty-cart-buttons">
+            <!-- Butoane de acțiune când coșul este gol -->
+            <a href="/Products/Books" class="btn btn-primary">
+                <i class="fas fa-book"></i> Vezi Carti
+                <!-- Link către pagina Cărți -->
+            </a>
+            <a href="/Products/Supplies" class="btn btn-secondary">
+                <i class="fas fa-pencil-alt"></i> Vezi Rechizite
+                <!-- Link către pagina Rechizite -->
+            </a>
+        </div>
+
+    </div>
+    <!-- Sfârșitul emptyCart -->
+
+    <div class="cart-layout" id="cartLayout" style="display:none;">
         <!-- Layout în două coloane: produse în stânga, sumar în dreapta -->
+        <!-- style="display:none;" — ascuns implicit; JS îl afișează când coșul are produse -->
 
         <!-- ---- Coloana stângă: lista de produse din coș ---- -->
         <div class="cart-items-container">
-            <!-- Container that holds the list of items or the empty cart message -->
-
-            <!-- Empty cart message — shown when cart has no items -->
-            <div id="emptyCart" class="empty-cart">
-                <!-- id="emptyCart" — JavaScript shows/hides this based on cart content -->
-
-                <div class="empty-cart-icon">🛒</div>
-                <!-- Cart emoji icon -->
-
-                <h2>Cosul tau este gol</h2>
-                <!-- "Your cart is empty" heading -->
-
-                <p>Nu ai adaugat niciun produs inca. Exploreaza catalogul nostru!</p>
-                <!-- Encouragement to browse products -->
-
-                <div class="empty-cart-buttons">
-                    <!-- Action buttons when cart is empty -->
-                    <a href="/Products/Books" class="btn btn-primary">
-                        <i class="fas fa-book"></i> Vezi Carti
-                        <!-- Link to Books page -->
-                    </a>
-                    <a href="/Products/Supplies" class="btn btn-secondary">
-                        <i class="fas fa-pencil-alt"></i> Vezi Rechizite
-                        <!-- Link to Supplies page -->
-                    </a>
-                </div>
-
-            </div>
-            <!-- End of emptyCart -->
-
-            <!-- Lista de produse din coș — afișată când coșul are produse -->
             <div id="cartItemsList" style="display:none;">
                 <!-- id="cartItemsList" — JavaScript populează și afișează acest div -->
                 <!-- style="display:none;" îl ascunde până când JavaScript îl umple cu date -->

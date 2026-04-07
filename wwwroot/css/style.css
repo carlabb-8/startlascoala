@@ -952,12 +952,8 @@ img {
     align-items: start;                 /* Aliniem ambele coloane la vârfurile lor */
 }
 
-/* Când coșul este gol, afisăm mesajul centrat pe toată lățimea paginii */
-.cart-layout:has(#emptyCart:not([style*="none"])) {
-    display: block;             /* Ocupă toată lățimea — fără grid cu două coloane */
-}
-
 /* ---- Mesaj coș gol ---- */
+/* Este în afara grid-ului — se centrează liber pe toată lățimea paginii */
 .empty-cart {
     text-align: center;
     padding: 4rem 2rem;

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagazinOnline")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0551b9abbf0725b68c29149bfe258c361346ed14")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb06de8511811569cb93f97034a8393327b22a1c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagazinOnline")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagazinOnline")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

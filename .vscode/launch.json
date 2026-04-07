@@ -1,0 +1,68 @@
+{
+    // launch.json — tells VS Code how to start and debug the application
+    // This file is used when you press F5 or click Run > Start Debugging
+
+    "version": "0.2.0",
+    // version: the launch configuration format version
+
+    "configurations": [
+        // configurations: a list of different ways to launch/debug the app
+
+        {
+            "name": ".NET Core Launch (web)",
+            // name: the label shown in the Run/Debug dropdown menu in VS Code
+
+            "type": "coreclr",
+            // type: "coreclr" is the C# extension debugger type for .NET Core
+            // Install the "C# Dev Kit" extension by Microsoft if this shows a warning
+
+            "request": "launch",
+            // request: "launch" means start the app from scratch
+
+            "preLaunchTask": "build",
+            // preLaunchTask: run the "build" task from tasks.json before launching
+            // This compiles the latest code before the debugger attaches
+
+            "program": "${workspaceFolder}/bin/Debug/net8.0/MagazinOnline.dll",
+            // program: path to the compiled .dll file that .NET will run
+            // After "dotnet build", the output goes to bin/Debug/net8.0/
+
+            "args": [],
+            // args: command-line arguments to pass to the application (none needed here)
+
+            "cwd": "${workspaceFolder}",
+            // cwd: current working directory when the app starts
+            // ${workspaceFolder} = the root folder of the project
+
+            "serverReadyAction": {
+                // serverReadyAction: automatically open the browser when the server starts
+
+                "action": "openExternally",
+                // action: "openExternally" = open the URL in the default browser
+
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+                // pattern: a regex that detects the "Now listening on: http://..." message
+                // When ASP.NET Core prints this, VS Code opens that URL automatically
+            },
+
+            "env": {
+                // env: environment variables passed to the running process
+
+                "ASPNETCORE_ENVIRONMENT": "Development"
+                // Development mode: shows detailed error pages and enables dev tools
+            }
+        },
+
+        {
+            "name": ".NET Core Attach",
+            // name: attach means connect to an ALREADY running .NET process
+
+            "type": "coreclr",
+            // type: "coreclr" — same C# debugger, but in attach mode
+
+            "request": "attach"
+            // request: "attach" — connect to a running dotnet process
+            // Useful when you've started the app with "dotnet run" in the terminal
+        }
+    ]
+}

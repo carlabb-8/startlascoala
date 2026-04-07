@@ -1,0 +1,282 @@
+@* Supplies.cshtml — afișează toate rechizitele școlare organizate pe grupe de vârstă *@
+@* Primește o List<Product> de la ProductsController.Supplies() *@
+
+@* Declarăm modelul — o listă de obiecte Product *@
+@model List<MagazinOnline.Models.Product>
+
+@{
+    @* Setăm titlul ferestrelor browserului *@
+    ViewData["Title"] = "Rechizite Scolare";
+}
+
+<!-- ==================== BANNER DE SUS ==================== -->
+<!-- Banner în partea de sus a paginii Rechizite -->
+<section class="page-hero page-hero-supplies">
+
+    <div class="page-hero-content">
+        <!-- Container pentru textul din banner -->
+        <h1><i class="fas fa-pencil-alt"></i> Rechizite Scolare</h1>
+        <!-- Titlul paginii cu iconiță creion -->
+        <p>Tot ce ai nevoie pentru scoala — caiete, creioane, ghiozdane si multe altele</p>
+        <!-- Subtitlu care descrie rechizitele disponibile -->
+    </div>
+
+</section>
+<!-- Sfârșitul banner-ului -->
+
+<!-- ==================== BARA DE FILTRARE ==================== -->
+<!-- Butoane de filtrare pe grupe de vârstă și dropdown de sortare -->
+<section class="filter-bar">
+
+    <div class="filter-container">
+        <!-- Container pentru butoanele de filtrare -->
+
+        <button class="filter-btn active" onclick="filterCategory('all', this)">
+            <!-- Butonul "Toate" — activ implicit -->
+            Toate Varstele
+        </button>
+
+        <button class="filter-btn" onclick="filterCategory('varsta 6-10', this)">
+            <!-- Filtru pentru grupa de vârstă 6-10 (școală primară) -->
+            Varsta 6–10 ani
+        </button>
+
+        <button class="filter-btn" onclick="filterCategory('varsta 10-14', this)">
+            <!-- Filtru pentru grupa de vârstă 10-14 (gimnaziu) -->
+            Varsta 10–14 ani
+        </button>
+
+        <button class="filter-btn" onclick="filterCategory('varsta 14+', this)">
+            <!-- Filtru pentru grupa de vârstă 14+ (liceu) -->
+            Varsta 14+ ani
+        </button>
+
+    </div>
+    <!-- Sfârșitul filter-container -->
+
+    <div class="sort-container">
+        <!-- Dropdown de sortare -->
+
+        <label for="sortSelect">Sorteaza dupa:</label>
+        <!-- Eticheta pentru dropdown-ul de sortare -->
+
+        <select id="sortSelect" class="sort-select" onchange="sortProducts(this.value)">
+            <!-- Dropdown apelează sortProducts() când selecția se schimbă -->
+
+            <option value="default">Implicit</option>
+            <!-- Implicit — fără sortare -->
+
+            <option value="price-asc">Pret crescator</option>
+            <!-- Preț crescător (cel mai ieftin primul) -->
+
+            <option value="price-desc">Pret descrescator</option>
+            <!-- Preț descrescător (cel mai scump primul) -->
+
+            <option value="name-asc">Nume A-Z</option>
+            <!-- Alfabetic după nume -->
+
+        </select>
+
+    </div>
+    <!-- Sfârșitul sort-container -->
+
+</section>
+<!-- Sfârșitul barei de filtrare -->
+
+<!-- ==================== GRIDUL DE RECHIZITE ==================== -->
+<section class="products-section">
+
+    <!-- ---- Antetul grupei de vârstă 6-10 ---- -->
+    <!-- Afișăm un separator vizual înainte de fiecare grupă de rechizite -->
+    <div class="age-group-header" id="header-6-10">
+        <!-- Antet separator al grupei de vârstă -->
+        <div class="age-badge">6–10 ani</div>
+        <!-- Badge colorat care arată grupa de vârstă -->
+        <h2>Rechizite pentru copii de 6–10 ani</h2>
+        <!-- Titlul secțiunii pentru această grupă de vârstă -->
+        <p>Produse potrivite pentru clasele I–IV</p>
+        <!-- Subtitlu care explică nivelul școlar -->
+    </div>
+
+    <!-- ---- Antetul grupei de vârstă 10-14 ---- -->
+    <div class="age-group-header" id="header-10-14" style="display:none;">
+        <!-- Ascuns inițial — JS afișează/ascunde în funcție de filtrul selectat -->
+        <div class="age-badge age-badge-mid">10–14 ani</div>
+        <h2>Rechizite pentru elevi de 10–14 ani</h2>
+        <p>Produse potrivite pentru clasele V–VIII</p>
+    </div>
+
+    <!-- ---- Antetul grupei de vârstă 14+ ---- -->
+    <div class="age-group-header" id="header-14" style="display:none;">
+        <!-- Ascuns inițial — JS afișează/ascunde în funcție de filtrul selectat -->
+        <div class="age-badge age-badge-high">14+ ani</div>
+        <h2>Rechizite pentru liceeni — 14+ ani</h2>
+        <p>Produse potrivite pentru clasele IX–XII</p>
+    </div>
+
+    <!-- Gridul principal de carduri de produse -->
+    <div id="productsGrid" class="products-grid">
+        <!-- id="productsGrid" folosit de JavaScript pentru căutare și filtrare -->
+
+        @* Parcurgem fiecare rechizită din Model *@
+        @foreach (var product in Model)
+        {
+            @* Renderăm un card pentru fiecare produs de rechizită *@
+            <div class="product-card"
+                 data-name="@product.Name.ToLower()"
+                 data-category="@product.Category.ToLower()"
+                 data-subcategory="@product.SubCategory.ToLower()"
+                 data-price="@product.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+                @* atributele data-* stochează informații despre produs pentru JavaScript *@
+
+                <!-- Imaginea produsului -->
+                <div class="product-image">
+                    <img src="@product.ImageUrl"
+                         alt="@product.Name"
+                         onerror="this.src='/images/default.png'" />
+                    @* Afișăm imaginea implicită dacă URL-ul imaginii reale este invalid *@
+
+                    <div class="product-badge">@product.SubCategory</div>
+                    @* Badge cu grupa de vârstă ex. "Varsta 6-10" *@
+                </div>
+
+                <!-- Informațiile text ale produsului -->
+                <div class="product-info">
+                    <h3 class="product-name">@product.Name</h3>
+                    @* Numele produsului *@
+
+                    <p class="product-description">@product.Description</p>
+                    @* Descrierea produsului *@
+
+                    <div class="product-footer">
+                        <!-- Rândul cu prețul și butonul de adăugare în coș -->
+
+                        <span class="product-price">@product.Price.ToString("F2") Lei</span>
+                        @* Prețul cu 2 zecimale și moneda *@
+
+                        <button class="btn btn-add-cart"
+                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture))">
+                            @* addToCart() este apelat cu numele și prețul produsului *@
+                            <i class="fas fa-cart-plus"></i> Adauga
+                        </button>
+
+                    </div>
+                    <!-- Sfârșitul product-footer -->
+
+                </div>
+                <!-- Sfârșitul product-info -->
+
+            </div>
+            @* Sfârșitul cardului de produs *@
+        }
+        @* Sfârșitul foreach *@
+
+    </div>
+    <!-- Sfârșitul productsGrid -->
+
+    <!-- No results message when search/filter yields nothing -->
+    <div id="noResults" class="no-results" style="display:none;">
+        <div class="no-results-icon">🔍</div>
+        <!-- Search emoji icon -->
+        <h3>Niciun produs gasit</h3>
+        <p>Incearca alt termen de cautare sau alt filtru.</p>
+    </div>
+
+</section>
+<!-- End of products-section -->
+
+@section Scripts {
+    @* Extra JavaScript specific to the Supplies page *@
+
+    <script>
+        // filterCategory() — shows/hides products and age-group headers based on selection
+        // category: the subcategory string to filter by, or "all" to show everything
+        // btn: the clicked filter button element (to highlight it)
+        function filterCategory(category, btn) {
+            // Get all product cards on the page
+            const cards = document.querySelectorAll('.product-card');
+
+            // Get all age group header elements
+            const headers = document.querySelectorAll('.age-group-header');
+
+            // Remove 'active' class from all filter buttons
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+
+            // Add 'active' to the button that was clicked
+            btn.classList.add('active');
+
+            // Loop through each product card and show/hide it
+            cards.forEach(card => {
+                // Get this card's subcategory value from the data attribute
+                const sub = card.getAttribute('data-subcategory');
+
+                // Show card if "all" is selected OR the subcategory matches
+                if (category === 'all' || sub.includes(category.toLowerCase())) {
+                    card.style.display = '';
+                    // Empty string removes the display:none style — card is shown
+                } else {
+                    card.style.display = 'none';
+                    // Set display:none to hide the card
+                }
+            });
+
+            // Show/hide the age group headers based on the selected filter
+            if (category === 'all') {
+                // When "all" is selected, show all age-group headers
+                document.getElementById('header-6-10').style.display = '';
+                document.getElementById('header-10-14').style.display = '';
+                document.getElementById('header-14').style.display = '';
+            } else {
+                // Otherwise, hide all headers first, then show only the matching one
+                headers.forEach(h => h.style.display = 'none');
+                // Hide every header
+
+                // Show only the header that matches the selected age group
+                if (category.includes('6-10')) document.getElementById('header-6-10').style.display = '';
+                if (category.includes('10-14')) document.getElementById('header-10-14').style.display = '';
+                if (category.includes('14+')) document.getElementById('header-14').style.display = '';
+            }
+
+            // Check if there are any visible products and show "no results" if not
+            checkNoResults();
+        }
+
+        // sortProducts() — sorts product cards based on dropdown selection
+        // value: sort option string from the <select> element
+        function sortProducts(value) {
+            // Get the products grid container
+            const grid = document.getElementById('productsGrid');
+
+            // Convert NodeList to Array so we can use .sort()
+            const cards = Array.from(grid.querySelectorAll('.product-card'));
+
+            // Sort the cards
+            cards.sort((a, b) => {
+                if (value === 'price-asc' || value === 'price-desc') {
+                    // Parse prices from data-price attributes as floating point numbers
+                    const priceA = parseFloat(a.getAttribute('data-price'));
+                    const priceB = parseFloat(b.getAttribute('data-price'));
+                    // Subtract to determine order — ascending or descending
+                    return value === 'price-asc' ? priceA - priceB : priceB - priceA;
+                }
+                if (value === 'name-asc') {
+                    // Compare names alphabetically using localeCompare
+                    return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+                }
+                return 0; // Default: no change in order
+            });
+
+            // Re-append sorted cards back into the grid
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        // On page load, show only the first age group header
+        // All headers are initially shown; hide 10-14 and 14+ until filtered
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOMContentLoaded fires after the HTML is fully loaded
+            document.getElementById('header-10-14').style.display = '';
+            // Show all headers when page loads
+            document.getElementById('header-14').style.display = '';
+        });
+    </script>
+}

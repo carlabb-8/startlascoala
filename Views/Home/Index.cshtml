@@ -1,0 +1,248 @@
+@* Index.cshtml — pagina principală (Home) a magazinului online *@
+@* Acest view primește o List<Product> de la HomeController.Index() *@
+
+@* Declarăm tipul modelului: o listă de obiecte Product *@
+@model List<MagazinOnline.Models.Product>
+
+@{
+    @* Setăm titlul paginii — folosit de _Layout.cshtml în tag-ul <title> *@
+    ViewData["Title"] = "Acasa";
+}
+
+<!-- ==================== SECȚIUNEA HERO ==================== -->
+<!-- Secțiunea hero este bannerul mare din vârful paginii principale -->
+<section class="hero">
+
+    <div class="hero-content">
+        <!-- hero-content centrează și stilizează textul din interior -->
+
+        <h1 class="hero-title">Bun venit la Start la Școală!</h1>
+        <!-- Titlul principal al paginii — urează bun venit vizitatorului -->
+
+        <p class="hero-subtitle">Tot ce ai nevoie pentru școală — cărți, rechizite și multe altele.</p>
+        <!-- Scurtă descriere a produselor disponibile în magazin -->
+
+        <div class="hero-buttons">
+            <!-- Container pentru cele două butoane principale de acțiune -->
+
+            <a href="/Products/Books" class="btn btn-primary">
+                <!-- Link stilizat ca buton principal — duce utilizatorul la pagina Cărți -->
+                <i class="fas fa-book"></i> Carti Scolare
+                <!-- Iconiță Font Awesome carte și textul butonului -->
+            </a>
+
+            <a href="/Products/Supplies" class="btn btn-secondary">
+                <!-- Link stilizat ca buton secundar — duce la pagina Rechizite -->
+                <i class="fas fa-pencil-alt"></i> Rechizite
+                <!-- Iconiță Font Awesome creion și textul butonului -->
+            </a>
+
+        </div>
+        <!-- Sfârșitul containerului hero-buttons -->
+
+    </div>
+    <!-- Sfârșitul secțiunii hero-content -->
+
+    <div class="hero-image">
+        <!-- Partea dreaptă a secțiunii hero — zona ilustrativă decorativă -->
+        <div class="hero-illustration">
+            <!-- Ilustrație placeholder făcută cu emoji -->
+            <span class="big-emoji">📚</span>
+            <!-- Emoji mare cu carte ca decorație pentru secțiunea hero -->
+        </div>
+    </div>
+
+</section>
+<!-- Sfârșitul secțiunii hero -->
+
+<!-- ==================== SECȚIUNEA CARDURI CATEGORII ==================== -->
+<!-- Navigare rapidă pe categorii afișată ca niște carduri vizuale sub hero -->
+<section class="categories-section">
+
+    <div class="section-header">
+        <!-- Container pentru titlul și subtitlul secțiunii -->
+        <h2>Categorii</h2>
+        <!-- Titlul secțiunii -->
+        <p>Alege categoria de care ai nevoie</p>
+        <!-- Subtitlul secțiunii -->
+    </div>
+
+    <div class="categories-grid">
+        <!-- Container grid pentru cardurile de categorii — CSS gestionează coloanele -->
+
+        <a href="/Products/Books" class="category-card">
+            <!-- Îtnregul card este un link clicabil către pagina Cărți -->
+            <div class="category-icon">📖</div>
+            <!-- Iconiță emoji pentru categoria Cărți -->
+            <h3>Carti</h3>
+            <!-- Numele categoriei -->
+            <p>Manuale, culegeri, BAC, Evaluare Nationala</p>
+            <!-- Scurtă descriere a ce găsești în această categorie -->
+            <span class="category-count">17 produse</span>
+            <!-- Numărul de produse din această categorie -->
+        </a>
+
+        <a href="/Products/Supplies" class="category-card">
+            <!-- Link clicabil către pagina Rechizite -->
+            <div class="category-icon">✏️</div>
+            <!-- Iconiță emoji pentru categoria Rechizite -->
+            <h3>Rechizite</h3>
+            <!-- Numele categoriei -->
+            <p>Caiete, creioane, ghiozdane, instrumente scolare</p>
+            <!-- Scurtă descriere a rechizitelor disponibile -->
+            <span class="category-count">14 produse</span>
+            <!-- Numărul de produse din această categorie -->
+        </a>
+
+        <a href="/Home/About" class="category-card">
+            <!-- Link clicabil către pagina Despre Noi -->
+            <div class="category-icon">🏫</div>
+            <!-- Emoji cu școală pentru secțiunea Despre Noi -->
+            <h3>Despre Noi</h3>
+            <!-- Numele categoriei -->
+            <p>Afla mai multe despre magazinul nostru</p>
+            <!-- Descrierea a ce conține pagina Despre Noi -->
+            <span class="category-count">Cunoaste-ne</span>
+            <!-- Text de apel la acțiune în loc de număr de produse -->
+        </a>
+
+    </div>
+    <!-- Sfârșitul categories-grid -->
+
+</section>
+<!-- Sfârșitul secțiunii categorii -->
+
+<!-- ==================== SECȚIUNEA PRODUSE POPULARE ==================== -->
+<!-- Afișează un grid de produse recomandate din modelul trimis de HomeController -->
+<section class="products-section" id="popularProducts">
+
+    <div class="section-header">
+        <!-- Container pentru titlul secțiunii -->
+        <h2>Produse Populare</h2>
+        <!-- Titlul secțiunii: Produse Populare -->
+        <p>Cele mai cautate produse de catre elevi</p>
+        <!-- Subtitlul secțiunii -->
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+        <!-- Container grid pentru carduri de produse — id="productsGrid" folosit de JS pentru căutare -->
+
+        @* Parcurgem fiecare produs din Model (List<Product> din HomeController) *@
+        @foreach (var product in Model)
+        {
+            @* Pentru fiecare produs, renderăm un card HTML *@
+            <div class="product-card" data-name="@product.Name.ToLower()" data-category="@product.Category.ToLower()">
+                @* data-name și data-category sunt atribute personalizate folosite de JavaScript pentru filtrare *@
+                @* .ToLower() convertște textul în litere mici pentru căutare insensibilă la majuscule *@
+
+                <!-- Zona imaginii produsului -->
+                <div class="product-image">
+                    <!-- Container pentru imaginea produsului -->
+                    <img src="@product.ImageUrl" alt="@product.Name" onerror="this.src='/images/default.png'" />
+                    @* src="@product.ImageUrl" setează sursa imaginii din datele produsului *@
+                    @* alt="@product.Name" setează textul alternativ pentru accesibilitate *@
+                    @* onerror="..." afișează o imagine implicită dacă imaginea produsului lipsește *@
+
+                    <div class="product-badge">@product.SubCategory</div>
+                    @* Badge care afișează subcategoria (ex. "BAC" sau "Varsta 6-10") *@
+                </div>
+
+                <!-- Zona de informații despre produs -->
+                <div class="product-info">
+                    <!-- Container pentru nume, descriere, preț și buton -->
+
+                    <h3 class="product-name">@product.Name</h3>
+                    @* Afișăm numele produsului ca titlu *@
+
+                    <p class="product-description">@product.Description</p>
+                    @* Scurtă descriere a produsului *@
+
+                    <div class="product-footer">
+                        <!-- Rândul de jos al cardului: preț în stânga, buton în dreapta -->
+
+                        <span class="product-price">@product.Price.ToString("F2") Lei</span>
+                        @* Afișăm prețul formatat cu 2 zecimale + "Lei" moneda *@
+                        @* .ToString("F2") înseamnă "2 zecimale fixe", ex. "32.99" *@
+
+                        <button class="btn btn-add-cart"
+                                onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture))">
+                            @* onclick apelează addToCart() JavaScript cu numei și prețul *@
+                            @* Html.Raw previne codificarea HTML a caracterelor speciale *@
+                            @* Replace("'", "\\'") scapă apostrofele ca JS să nu se strice *@
+                            @* InvariantCulture asigură că prețul folosește punct (.) nu virgulă (,) *@
+                            <i class="fas fa-cart-plus"></i> Adauga
+                            @* Iconiță coș+ și textul "Adauga" pe buton *@
+                        </button>
+
+                    </div>
+                    <!-- Sfârșitul product-footer -->
+
+                </div>
+                <!-- Sfârșitul product-info -->
+
+            </div>
+            @* Sfârșitul cardului de produs *@
+        }
+        @* Sfârșitul buclei foreach *@
+
+    </div>
+    <!-- Sfârșitul products-grid -->
+
+    <div class="section-footer">
+        <!-- Partea de jos a secțiunii cu link-uri către paginile complete de produse -->
+        <a href="/Products/Books" class="btn btn-outline">Vezi toate cartile</a>
+        <!-- Buton cu link la pagina completă Cărți -->
+        <a href="/Products/Supplies" class="btn btn-outline">Vezi toate rechizitele</a>
+        <!-- Buton cu link la pagina completă Rechizite -->
+    </div>
+
+</section>
+<!-- Sfârșitul secțiunii produse populare -->
+
+<!-- ==================== SECȚIUNEA AVANTAJE / DE CE NOI ==================== -->
+<section class="features-section">
+
+    <div class="section-header">
+        <h2>De ce să alegi Start la Școală?</h2>
+        <!-- Titlul secțiunii care explică avantajele magazinului nostru -->
+    </div>
+
+    <div class="features-grid">
+        <!-- Grid de carduri cu avantajele magazinului -->
+
+        <div class="feature-card">
+            <!-- Card individual cu un avantaj -->
+            <div class="feature-icon">🚚</div>
+            <!-- Emoji camion de livrare -->
+            <h3>Livrare Rapida</h3>
+            <!-- Numele avantajului -->
+            <p>Livrare in 24-48 de ore in toata tara</p>
+            <!-- Descrierea avantajului -->
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💯</div>
+            <!-- Emoji 100% pentru calitate -->
+            <h3>Produse Originale</h3>
+            <p>Toate produsele sunt originale si de calitate</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <!-- Emoji lacăt pentru securitate -->
+            <h3>Plata Sigura</h3>
+            <p>Tranzactii securizate si date protejate</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🎁</div>
+            <!-- Emoji cadou pentru oferte speciale -->
+            <h3>Oferte Speciale</h3>
+            <p>Reduceri si promotii pentru elevi si studenti</p>
+        </div>
+
+    </div>
+    <!-- Sfârșitul features-grid -->
+
+</section>
+<!-- Sfârșitul secțiunii avantaje -->

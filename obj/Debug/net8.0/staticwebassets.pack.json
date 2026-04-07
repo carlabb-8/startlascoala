@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "c:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "c:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\default.png",
+      "PackagePath": "staticwebassets\\images\\default.png"
+    },
+    {
+      "Id": "c:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\despre-noi.png",
+      "PackagePath": "staticwebassets\\images\\despre-noi.png"
+    },
+    {
+      "Id": "c:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "c:\\Users\\Carla\\Desktop\\magazin online v2\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MagazinOnline.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MagazinOnline.props",
+      "PackagePath": "build\\MagazinOnline.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MagazinOnline.props",
+      "PackagePath": "buildMultiTargeting\\MagazinOnline.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MagazinOnline.props",
+      "PackagePath": "buildTransitive\\MagazinOnline.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

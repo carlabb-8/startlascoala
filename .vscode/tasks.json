@@ -1,0 +1,94 @@
+{
+    // tasks.json — tells VS Code how to build and run the project
+    // These tasks are used by the Run/Debug panel and launch.json
+
+    "version": "2.0.0",
+    // version: the tasks format version (2.0.0 is current)
+
+    "tasks": [
+        // tasks: an array of build/run tasks VS Code can execute
+
+        {
+            "label": "build",
+            // label: the name of this task — launch.json references it by this name
+
+            "command": "dotnet",
+            // command: the program to run ("dotnet" CLI tool)
+
+            "type": "process",
+            // type: "process" means run it as a direct OS process (not a shell script)
+
+            "args": [
+                "build",
+                // "build" tells dotnet to compile the project
+
+                "${workspaceFolder}/MagazinOnline.csproj",
+                // ${workspaceFolder} is replaced by VS Code with the project's root folder path
+                // We give it the .csproj file so dotnet knows exactly which project to build
+
+                "/property:GenerateFullPaths=true",
+                // GenerateFullPaths: makes error messages show full file paths (easier to click on)
+
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+                // NoSummary: skip the build summary at the end
+                // ForceNoAlign: don't align columns in the console output
+            ],
+
+            "problemMatcher": "$msCompile",
+            // problemMatcher: "$msCompile" tells VS Code how to parse C# compiler errors
+            // This lets errors appear in the VS Code "Problems" panel
+
+            "group": {
+                "kind": "build",
+                // kind: "build" marks this as a build task (shown in Terminal > Run Build Task)
+
+                "isDefault": true
+                // isDefault: true means Ctrl+Shift+B will run this task automatically
+            }
+        },
+
+        {
+            "label": "publish",
+            // "publish" task: compiles and packages the app for deployment
+
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                // "publish" compiles and gathers all files needed to run the app
+
+                "${workspaceFolder}/MagazinOnline.csproj"
+                // Target project file
+            ],
+            "problemMatcher": "$msCompile"
+            // Same error parser as the build task
+        },
+
+        {
+            "label": "watch",
+            // "watch" task: compiles and WATCHES for file changes — auto-restarts on save
+
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                // "watch" monitors files for changes
+
+                "run",
+                // "run" starts the application
+
+                "--project",
+                "${workspaceFolder}/MagazinOnline.csproj"
+                // --project points to our .csproj file
+            ],
+            "problemMatcher": "$msCompile",
+
+            "group": "build",
+            // group: "build" — this is also a build-type task
+
+            "isBackground": true
+            // isBackground: true — this task runs continuously in the background
+            // It doesn't "finish" — it keeps watching for file changes
+        }
+    ]
+}

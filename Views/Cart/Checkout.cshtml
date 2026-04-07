@@ -1,0 +1,591 @@
+@* Checkout.cshtml — pagina de checkout unde utilizatorii introduc datele comenzii *@
+@* Nu este necesar niciun model C# — datele formularului rămân în browser (este o simulare) *@
+
+@{
+    @* Setăm titlul ferestrelor browserului *@
+    ViewData["Title"] = "Finalizeaza Comanda";
+}
+
+<!-- ==================== BANNER DE SUS ==================== -->
+<section class="page-hero page-hero-checkout">
+
+    <div class="page-hero-content">
+        <!-- Container pentru textul din banner -->
+        <h1><i class="fas fa-lock"></i> Finalizeaza Comanda</h1>
+        <!-- Titlul paginii cu iconiță lacăt care indică un checkout securizat -->
+        <p>Completeaza datele de livrare si plata</p>
+        <!-- Subtitlu: "Completează datele de livrare și plată" -->
+    </div>
+
+</section>
+<!-- Sfârșitul bannerului -->
+
+<!-- ==================== AVERTISMENT SIMULARE ==================== -->
+<!-- Banner important care avertizează utilizatorul că NU este un sistem real de plată -->
+<div class="simulation-notice">
+    <!-- Banner galben/portocaliu afișat proeminent în susul paginii -->
+
+    <i class="fas fa-info-circle"></i>
+    <!-- Iconiță info pentru a atrage atenția -->
+
+    <strong>Atentie:</strong> Aceasta este o simulare — nu se fac plati reale.
+    <!-- Eticheta îngrosată "Atenție:" urmată de declarația de declinare a răspunderii -->
+    Nicio informatie bancara nu este procesata sau stocata.
+    <!-- Clarificare că nu sunt procesate informații bancare -->
+
+</div>
+<!-- Sfârșitul avertismentului de simulare -->
+
+<!-- ==================== LAYOUT CHECKOUT ==================== -->
+<section class="checkout-section">
+
+    <div class="checkout-layout">
+        <!-- Layout în două coloane: formular în stânga, sumar comandă în dreapta -->
+
+        <!-- ---- Coloana stângă: formularul de checkout ---- -->
+        <div class="checkout-form-container">
+            <!-- Container pentru întregul formular de checkout -->
+
+            <!-- === Pașul 1: Date Personale === -->
+            <div class="checkout-step">
+                <!-- Fiecare pas de checkout este o secțiune grupată cu un antet -->
+
+                <div class="step-header">
+                    <!-- Antetul pasului cu cercul numărului și titlul -->
+                    <div class="step-number">1</div>
+                    <!-- Cerc cu numărul pasului -->
+                    <h2>Date Personale</h2>
+                    <!-- Titlul pasului: "Date Personale" -->
+                </div>
+
+                <div class="form-group">
+                    <!-- Grup formular: pereche etichetă + câmp de intrare -->
+                    <label for="fullName">Nume complet *</label>
+                    <!-- Eticheta pentru câmpul de nume complet — * înseamnă obligatoriu -->
+                    <input type="text"
+                           id="fullName"
+                           name="fullName"
+                           class="form-control"
+                           placeholder="ex: Ion Popescu"
+                           required />
+                    <!-- Câmp text pentru numele complet -->
+                    <!-- atributul required face ca browserul să valideze câmpul înainte de trimitere -->
+                </div>
+
+                <div class="form-group">
+                    <!-- Grupul câmpului email -->
+                    <label for="email">Adresa de email *</label>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           class="form-control"
+                           placeholder="ex: ion@email.com"
+                           required />
+                    <!-- type="email" face ca browserul să valideze automat formatul email -->
+                </div>
+
+                <div class="form-group">
+                    <!-- Grupul câmpului număr de telefon -->
+                    <label for="phone">Numar de telefon *</label>
+                    <input type="tel"
+                           id="phone"
+                           name="phone"
+                           class="form-control"
+                           placeholder="ex: 07XX XXX XXX"
+                           required />
+                    <!-- type="tel" afișează tastatura numerică pe dispozitivele mobile -->
+                </div>
+
+            </div>
+            <!-- Sfârșitul pasului 1 -->
+
+            <!-- === Pașul 2: Adresă de Livrare === -->
+            <div class="checkout-step">
+
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2>Adresa de Livrare</h2>
+                    <!-- Titlul pasului 2: "Adresă de Livrare" -->
+                </div>
+
+                <div class="form-group">
+                    <!-- Câmpul pentru adresa străzii -->
+                    <label for="street">Strada si numarul *</label>
+                    <input type="text"
+                           id="street"
+                           name="street"
+                           class="form-control"
+                           placeholder="ex: Str. Florilor nr. 5"
+                           required />
+                </div>
+
+                <div class="form-row">
+                    <!-- Două câmpuri alăturate pe un singur rând -->
+
+                    <div class="form-group">
+                        <!-- Câmpul orașului -->
+                        <label for="city">Oras *</label>
+                        <input type="text"
+                               id="city"
+                               name="city"
+                               class="form-control"
+                               placeholder="ex: Bucuresti"
+                               required />
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Câmpul codului poștal -->
+                        <label for="postal">Cod postal *</label>
+                        <input type="text"
+                               id="postal"
+                               name="postal"
+                               class="form-control"
+                               placeholder="ex: 010101"
+                               required />
+                    </div>
+
+                </div>
+                <!-- Sfârșitul form-row -->
+
+                <div class="form-group">
+                    <!-- County dropdown field -->
+                    <label for="county">Judet *</label>
+                    <select id="county" name="county" class="form-control" required>
+                        <!-- Dropdown with all Romanian counties -->
+                        <option value="">-- Selecteaza judetul --</option>
+                        <!-- Disabled placeholder option -->
+                        <option value="AB">Alba</option>
+                        <option value="AR">Arad</option>
+                        <option value="AG">Arges</option>
+                        <option value="BC">Bacau</option>
+                        <option value="BH">Bihor</option>
+                        <option value="BN">Bistrita-Nasaud</option>
+                        <option value="BT">Botosani</option>
+                        <option value="BV">Brasov</option>
+                        <option value="BR">Braila</option>
+                        <option value="B">Bucuresti</option>
+                        <!-- Added all major Romanian counties for the dropdown -->
+                        <option value="BZ">Buzau</option>
+                        <option value="CS">Caras-Severin</option>
+                        <option value="CL">Calarasi</option>
+                        <option value="CJ">Cluj</option>
+                        <option value="CT">Constanta</option>
+                        <option value="CV">Covasna</option>
+                        <option value="DB">Dambovita</option>
+                        <option value="DJ">Dolj</option>
+                        <option value="GL">Galati</option>
+                        <option value="GR">Giurgiu</option>
+                        <option value="GJ">Gorj</option>
+                        <option value="HR">Harghita</option>
+                        <option value="HD">Hunedoara</option>
+                        <option value="IL">Ialomita</option>
+                        <option value="IS">Iasi</option>
+                        <option value="IF">Ilfov</option>
+                        <option value="MM">Maramures</option>
+                        <option value="MH">Mehedinti</option>
+                        <option value="MS">Mures</option>
+                        <option value="NT">Neamt</option>
+                        <option value="OT">Olt</option>
+                        <option value="PH">Prahova</option>
+                        <option value="SM">Satu Mare</option>
+                        <option value="SJ">Salaj</option>
+                        <option value="SB">Sibiu</option>
+                        <option value="SV">Suceava</option>
+                        <option value="TR">Teleorman</option>
+                        <option value="TM">Timis</option>
+                        <option value="TL">Tulcea</option>
+                        <option value="VS">Vaslui</option>
+                        <option value="VL">Valcea</option>
+                        <option value="VN">Vrancea</option>
+                    </select>
+                </div>
+
+            </div>
+            <!-- End of step 2 (Delivery Address) -->
+
+            <!-- === Payment Details Step (Simulated) === -->
+            <div class="checkout-step">
+
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2>Date de Plata <span class="sim-badge">SIMULARE</span></h2>
+                <!-- === Pașul 3: Date de Plată (Simulare) === -->
+            <div class="checkout-step">
+
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2>Date de Plata <span class="sim-badge">SIMULARE</span></h2>
+                    <!-- Titlul pasului 3 cu badge-ul "SIMULARE" pentru a marca clar că e fictiv -->
+                </div>
+
+                <!-- Avertisment de simulare repetat în interiorul secțiunii de plată -->
+                <div class="payment-notice">
+                    <!-- Casetă info stilizată pentru avertismentul de simulare -->
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Aceasta sectiune este doar o simulare. Nu introduce date bancare reale.</span>
+                    <!-- Mesaj clar de avertizare: nu introduce date bancare reale -->
+                </div>
+
+                <div class="payment-options">
+                    <!-- Grup de butoane radio pentru selectarea metodei de plată -->
+
+                    <label class="payment-option">
+                        <!-- Eticheta clicabilă pentru opțiunea de plată -->
+                        <input type="radio" name="paymentMethod" value="card" checked />
+                        <!-- Radio input — "checked" înseamnă că este selectat implicit -->
+                        <div class="payment-option-content">
+                            <i class="fas fa-credit-card"></i>
+                            <!-- Iconiță card de credit -->
+                            <span>Card bancar (simulat)</span>
+                            <!-- Eticheta: "Card bancar (simulat)" -->
+                        </div>
+                    </label>
+
+                    <label class="payment-option">
+                        <input type="radio" name="paymentMethod" value="cash" />
+                        <!-- Opțiunea radio pentru plata la livrare -->
+                        <div class="payment-option-content">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <!-- Iconiță bancnotă -->
+                            <span>Plata la livrare</span>
+                            <!-- Eticheta: "Plată la livrare" -->
+                        </div>
+                    </label>
+
+                </div>
+                <!-- Sfârșitul payment-options -->
+
+                <!-- Câmpurile pentru cardul bancar (afișate implicit) -->
+                <div id="cardFields">
+                    <!-- id="cardFields" — JavaScript ascunde aceasta când e selectată "Plată la livrare" -->
+
+                    <div class="form-group">
+                        <!-- Câmpul numărului de card -->
+                        <label for="cardNumber">Numar card (simulat) *</label>
+                        <input type="text"
+                               id="cardNumber"
+                               class="form-control"
+                               placeholder="XXXX XXXX XXXX XXXX"
+                               maxlength="19"
+                               oninput="formatCardNumber(this)" />
+                        <!-- oninput="formatCardNumber(this)" apelează JS pentru formatare ex. 1234 5678 9012 3456 -->
+                        <!-- maxlength="19" permite max 16 cifre + 3 spații -->
+                    </div>
+
+                    <div class="form-row">
+                        <!-- Două câmpuri de card alăturate -->
+
+                        <div class="form-group">
+                            <!-- Câmpul datei de expirare -->
+                            <label for="expiryDate">Data expirarii *</label>
+                            <input type="text"
+                                   id="expiryDate"
+                                   class="form-control"
+                                   placeholder="MM/YY"
+                                   maxlength="5"
+                                   oninput="formatExpiry(this)" />
+                            <!-- oninput formatează automat MM/YY pe măsură ce utilizatorul tastează -->
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Câmpul codului de securitate CVV -->
+                            <label for="cvv">CVV *</label>
+                            <input type="text"
+                                   id="cvv"
+                                   class="form-control"
+                                   placeholder="XXX"
+                                   maxlength="3" />
+                            <!-- maxlength="3" limitează la 3 cifre -->
+                        </div>
+
+                    </div>
+                    <!-- Sfârșitul form-row pentru detaliile cardului -->
+
+                    <div class="form-group">
+                        <!-- Cardholder name field -->
+                        <label for="cardName">Numele de pe card *</label>
+                        <input type="text"
+                               id="cardName"
+                               class="form-control"
+                               placeholder="ex: ION POPESCU" />
+                        <!-- Cardholder name as shown on the card -->
+                    </div>
+
+                </div>
+                <!-- End of cardFields -->
+
+            </div>
+            <!-- End of step 3 (Payment) -->
+
+            <!-- Order notes field -->
+            <div class="checkout-step">
+
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h2>Mentiuni Comanda</h2>
+                    <!-- Step 4: additional notes for the order -->
+                </div>
+
+                <div class="form-group">
+                    <!-- Text area for additional order notes -->
+                    <label for="orderNotes">Note suplimentare (optional)</label>
+                    <textarea id="orderNotes"
+                              name="orderNotes"
+                              class="form-control"
+                              rows="3"
+                              placeholder="ex: Suna inainte de livrare / Lasa la usa / Cadou (ambalare speciala)"></textarea>
+                    <!-- rows="3" sets the default height of the text area to 3 lines -->
+                    <!-- placeholder gives examples of what to write here -->
+                </div>
+
+            </div>
+            <!-- End of step 4 (Notes) -->
+
+            <!-- Submit button -->
+            <button type="button" class="btn btn-primary btn-block btn-order" onclick="placeOrder()">
+                <!-- onclick="placeOrder()" calls the JavaScript function to process the simulated order -->
+                <!-- type="button" prevents default form submission — JS handles everything -->
+                <i class="fas fa-check-circle"></i> Plaseaza Comanda (Simulare)
+                <!-- Checkmark icon + "Place Order (Simulation)" text -->
+            </button>
+
+        </div>
+        <!-- End of checkout-form-container (left column) -->
+
+        <!-- ---- Right column: order summary ---- -->
+        <div class="checkout-summary">
+
+            <h3 class="summary-title">Sumar Comanda</h3>
+            <!-- "Order Summary" heading -->
+
+            <!-- Container for listed cart items — populated by JavaScript -->
+            <div id="checkoutItemsList">
+                <!-- JavaScript will fill this div with the items from localStorage -->
+            </div>
+
+            <div class="summary-divider"></div>
+            <!-- Divider line between items and totals -->
+
+            <div class="summary-row">
+                <!-- Products subtotal row -->
+                <span>Subtotal:</span>
+                <span id="coSubtotal">0.00 Lei</span>
+                <!-- id="coSubtotal" — updated by JavaScript from localStorage cart -->
+            </div>
+
+            <div class="summary-row">
+                <!-- Shipping row -->
+                <span>Transport:</span>
+                <span>Gratuit</span>
+                <!-- Free shipping displayed statically -->
+            </div>
+
+            <div class="summary-row summary-total">
+                <!-- Total row styled bold/large -->
+                <strong>Total de plata:</strong>
+                <!-- "Total to pay" label in bold -->
+                <strong id="coTotal">0.00 Lei</strong>
+                <!-- Total — updated by JavaScript -->
+            </div>
+
+        </div>
+        <!-- End of checkout-summary (right column) -->
+
+    </div>
+    <!-- End of checkout-layout -->
+
+</section>
+<!-- End of checkout-section -->
+
+<!-- ==================== ORDER SUCCESS MODAL ==================== -->
+<!-- Popup that appears after a successful (simulated) order is placed -->
+<div id="orderModal" class="modal" style="display:none;">
+    <!-- id="orderModal" — JavaScript shows this after placeOrder() is called -->
+    <!-- style="display:none;" hides the modal by default -->
+
+    <div class="modal-content">
+        <!-- The card-style box inside the overlay backdrop -->
+
+        <div class="modal-icon success">✅</div>
+        <!-- Green checkmark emoji indicating success -->
+
+        <h2>Comanda Plasata!</h2>
+        <!-- "Order Placed!" heading -->
+
+        <p>Multumim pentru comanda ta. Vei primi un email de confirmare in curand.</p>
+        <!-- Thank you message with promise of confirmation email -->
+
+        <div class="modal-notice">
+            <!-- Reminder that this is a simulation -->
+            <i class="fas fa-info-circle"></i>
+            Aceasta a fost o simulare. Nicio comanda reala nu a fost procesata.
+            <!-- "This was a simulation. No real order has been processed." -->
+        </div>
+
+        <button class="btn btn-primary" onclick="closeModal()">
+            <!-- Button to close the modal and return to the home page -->
+            <i class="fas fa-home"></i> Inapoi la magazin
+            <!-- "Back to store" button text -->
+        </button>
+
+    </div>
+    <!-- End of modal-content -->
+
+</div>
+<!-- End of orderModal -->
+
+@section Scripts {
+    @* Page-specific JavaScript for the checkout page *@
+    <script>
+        // Load and display the order summary when the page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the cart from localStorage — returns JSON string or null
+            const cartData = localStorage.getItem('cart');
+            // localStorage.getItem() reads a saved value from browser storage
+
+            // Parse the JSON string back into a JavaScript array
+            const cart = cartData ? JSON.parse(cartData) : [];
+            // If cartData is null/empty, default to an empty array []
+
+            // Get the HTML container we'll fill with cart items
+            const itemsList = document.getElementById('checkoutItemsList');
+
+            // Get the totals display elements
+            const coSubtotal = document.getElementById('coSubtotal');
+            const coTotal = document.getElementById('coTotal');
+
+            // Calculate the total price by adding up all items (price * quantity)
+            let total = 0;
+            // Initialize total as 0
+
+            // Build the HTML for each cart item
+            let html = '';
+            // Start with an empty string we'll append to
+
+            cart.forEach(item => {
+                // Loop through each item in the cart array
+                const itemTotal = item.price * item.quantity;
+                // Calculate this item's total: price × quantity
+                total += itemTotal;
+                // Add to the running total
+
+                // Add an HTML row for this cart item
+                html += `
+                    <div class="checkout-item">
+                        <!-- checkout-item styles each product row -->
+                        <span class="checkout-item-name">${item.name} x${item.quantity}</span>
+                        <!-- Show product name and quantity -->
+                        <span class="checkout-item-price">${itemTotal.toFixed(2)} Lei</span>
+                        <!-- Show item total formatted to 2 decimal places -->
+                    </div>
+                `;
+                // toFixed(2) formats a number like 32.9 to "32.90"
+            });
+
+            // If cart is empty, show a message
+            if (cart.length === 0) {
+                html = '<p class="empty-checkout-notice">Cosul tau este gol. <a href="/Products/Books">Adauga produse</a></p>';
+                // Show a link to go back and add products
+            }
+
+            // Insert the built HTML into the page
+            itemsList.innerHTML = html;
+
+            // Update the subtotal and total text
+            coSubtotal.textContent = total.toFixed(2) + ' Lei';
+            // textContent sets the visible text — no HTML parsing (safer than innerHTML)
+            coTotal.textContent = total.toFixed(2) + ' Lei';
+        });
+
+        // formatCardNumber() — formats card number input with spaces every 4 digits
+        // el: the input element
+        function formatCardNumber(el) {
+            // Remove all non-digit characters from the input
+            let value = el.value.replace(/\D/g, '');
+            // \D matches any non-digit character; /g means replace all occurrences
+
+            // Add a space after every 4 digits
+            value = value.replace(/(.{4})/g, '$1 ').trim();
+            // (.{4}) captures each group of 4 characters; ' ' adds space after
+
+            // Put the formatted value back in the input field
+            el.value = value;
+        }
+
+        // formatExpiry() — formats expiry date as MM/YY
+        // el: the input element
+        function formatExpiry(el) {
+            // Remove all non-digit characters
+            let value = el.value.replace(/\D/g, '');
+
+            // After 2 digits insert a /
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+                // slice(0,2) gets first 2 chars; slice(2) gets remainder
+            }
+
+            // Set the formatted value back
+            el.value = value;
+        }
+
+        // placeOrder() — validates the form and shows the order success modal
+        function placeOrder() {
+            // Get all required text, email, and tel inputs in the form
+            const requiredFields = document.querySelectorAll('.form-control[required]');
+
+            // Check if any required field is empty
+            for (let field of requiredFields) {
+                // for...of loop iterates over each required field
+                if (!field.value.trim()) {
+                    // .trim() removes leading/trailing spaces; if empty after trim, show error
+                    field.focus();
+                    // Move the cursor to the empty field
+                    alert('Te rugam sa completezi toate campurile obligatorii (marcate cu *).');
+                    // Show a browser alert asking user to fill in required fields
+                    return;
+                    // Stop the function — don't proceed with the order
+                }
+            }
+
+            // If all required fields are filled, clear the cart from localStorage
+            localStorage.removeItem('cart');
+            // removeItem() deletes the 'cart' key from localStorage
+
+            // Update the cart count badge in the navbar to 0
+            updateCartCount();
+            // updateCartCount() is defined in site.js
+
+            // Show the success modal overlay
+            document.getElementById('orderModal').style.display = 'flex';
+            // style.display = 'flex' makes the modal visible (CSS uses flex for centering)
+        }
+
+        // closeModal() — hides the order success modal and redirects to home
+        function closeModal() {
+            // Hide the modal
+            document.getElementById('orderModal').style.display = 'none';
+
+            // Navigate the user back to the home page after order placement
+            window.location.href = '/';
+            // window.location.href changes the URL, causing a page navigation
+        }
+
+        // Toggle card fields visibility based on payment method selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            // querySelectorAll gets all radio inputs with name="paymentMethod"
+            radio.addEventListener('change', function () {
+                // addEventListener('change') fires when the selected radio button changes
+                const cardFields = document.getElementById('cardFields');
+                // Get the card input fields container
+
+                if (this.value === 'card') {
+                    cardFields.style.display = 'block';
+                    // Show card fields when "card" payment is selected
+                } else {
+                    cardFields.style.display = 'none';
+                    // Hide card fields when "cash on delivery" is selected
+                }
+            });
+        });
+    </script>
+}

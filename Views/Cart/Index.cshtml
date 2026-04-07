@@ -1,0 +1,162 @@
+@* Cart/Index.cshtml — pagina Coșului de Cumpărături *@
+@* Nu este necesar niciun model C# — datele coșului sunt stocate în localStorage browserului *@
+@* JavaScript citește localStorage și construiește dinamic afișarea coșului *@
+
+@{
+    @* Setăm titlul ferestrelor browserului *@
+    ViewData["Title"] = "Cosul Meu";
+}
+
+<!-- ==================== BANNER DE SUS ==================== -->
+<section class="page-hero page-hero-cart">
+
+    <div class="page-hero-content">
+        <!-- Container pentru textul din banner -->
+        <h1><i class="fas fa-shopping-cart"></i> Cosul Meu</h1>
+        <!-- Titlul paginii cu iconiță coș -->
+        <p>Verifica produsele selectate inainte de a finaliza comanda</p>
+        <!-- Subtitlu care explică ce trebuie să facă utilizatorul pe această pagină -->
+    </div>
+
+</section>
+<!-- Sfârșitul bannerului -->
+
+<!-- ==================== ZONA CONȚINUT COȘ ==================== -->
+<section class="cart-section">
+
+    <div class="cart-layout">
+        <!-- Layout în două coloane: produse în stânga, sumar în dreapta -->
+
+        <!-- ---- Coloana stângă: lista de produse din coș ---- -->
+        <div class="cart-items-container">
+            <!-- Container that holds the list of items or the empty cart message -->
+
+            <!-- Empty cart message — shown when cart has no items -->
+            <div id="emptyCart" class="empty-cart">
+                <!-- id="emptyCart" — JavaScript shows/hides this based on cart content -->
+
+                <div class="empty-cart-icon">🛒</div>
+                <!-- Cart emoji icon -->
+
+                <h2>Cosul tau este gol</h2>
+                <!-- "Your cart is empty" heading -->
+
+                <p>Nu ai adaugat niciun produs inca. Exploreaza catalogul nostru!</p>
+                <!-- Encouragement to browse products -->
+
+                <div class="empty-cart-buttons">
+                    <!-- Action buttons when cart is empty -->
+                    <a href="/Products/Books" class="btn btn-primary">
+                        <i class="fas fa-book"></i> Vezi Carti
+                        <!-- Link to Books page -->
+                    </a>
+                    <a href="/Products/Supplies" class="btn btn-secondary">
+                        <i class="fas fa-pencil-alt"></i> Vezi Rechizite
+                        <!-- Link to Supplies page -->
+                    </a>
+                </div>
+
+            </div>
+            <!-- End of emptyCart -->
+
+            <!-- Lista de produse din coș — afișată când coșul are produse -->
+            <div id="cartItemsList" style="display:none;">
+                <!-- id="cartItemsList" — JavaScript populează și afișează acest div -->
+                <!-- style="display:none;" îl ascunde până când JavaScript îl umple cu date -->
+
+                <div class="cart-items-header">
+                    <!-- Rândul antet de deasupra listei de produse -->
+                    <h2><i class="fas fa-shopping-basket"></i> Produse in cos</h2>
+                    <!-- Titlul: "Produse în coș" -->
+                    <button class="btn btn-danger btn-sm" onclick="clearCart()">
+                        <!-- Buton pentru a goli întreg coșul -->
+                        <!-- onclick="clearCart()" apelează funcția JS care șterge toate produsele -->
+                        <i class="fas fa-trash"></i> Goleste cosul
+                        <!-- Iconiță coș de gunoi + eticheta "Golește coșul" -->
+                    </button>
+                </div>
+
+                <!-- Lista efectivă de produse va fi injectată aici de JavaScript -->
+                <div id="cartItemsContent">
+                    <!-- JavaScript va umple acest div cu rânduri de produse dinamic -->
+                </div>
+
+            </div>
+            <!-- Sfârșitul cartItemsList -->
+
+        </div>
+        <!-- Sfârșitul cart-items-container -->
+
+        <!-- ---- Coloana dreaptă: sumarul comenzii ---- -->
+        <div class="cart-summary" id="cartSummary" style="display:none;">
+            <!-- id="cartSummary" — afișat de JavaScript când coșul are produse -->
+
+            <h3 class="summary-title">Sumar Comanda</h3>
+            <!-- Titlul: "Sumar Comandă" -->
+
+            <div class="summary-row">
+                <!-- Rând care arată numărul de produse -->
+                <span>Produse:</span>
+                <!-- Eticheta -->
+                <span id="summaryCount">0</span>
+                <!-- Numărul de articole — actualizat de JavaScript -->
+            </div>
+
+            <div class="summary-row">
+                <!-- Rând cu prețul subtotal -->
+                <span>Subtotal:</span>
+                <span id="summarySubtotal">0.00 Lei</span>
+                <!-- Suma subtotal — actualizată de JavaScript -->
+            </div>
+
+            <div class="summary-row">
+                <!-- Rând cu costul de transport -->
+                <span>Transport:</span>
+                <span id="summaryShipping">Gratuit</span>
+                <!-- Transport "Gratuit" — se poate schimba în funcție de totalul coșului -->
+            </div>
+
+            <div class="summary-divider"></div>
+            <!-- Linie orizontală care separă subtotalul de total -->
+
+            <div class="summary-row summary-total">
+                <!-- Rândul total — stilizat mai mare și aldin -->
+                <strong>Total:</strong>
+                <!-- Eticheta "Total" cu text aldin -->
+                <strong id="summaryTotal">0.00 Lei</strong>
+                <!-- Suma totală — actualizată de JavaScript -->
+            </div>
+
+            <a href="/Cart/Checkout" class="btn btn-primary btn-block">
+                <!-- Buton "Finalizează Comanda" care navighează la pagina de checkout -->
+                <i class="fas fa-lock"></i> Finalizeaza Comanda
+                <!-- Iconiță lacăt + textul butonului -->
+            </a>
+
+            <a href="/Products/Books" class="btn btn-outline btn-block">
+                <!-- Link "Continuă Cumpărăturile" înapoierea către produse -->
+                <i class="fas fa-arrow-left"></i> Continua Cumparaturile
+                <!-- Iconiță săgeată stânga + textul link-ului -->
+            </a>
+
+        </div>
+        <!-- Sfârșitul cart-summary -->
+
+    </div>
+    <!-- Sfârșitul cart-layout -->
+
+</section>
+<!-- Sfârșitul cart-section -->
+
+@section Scripts {
+    @* Page-specific JavaScript for the cart rendering *@
+    <script>
+        // Call showCart() when the page finishes loading
+        // This reads localStorage and renders the cart items on screen
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOMContentLoaded fires after all HTML elements are available in the DOM
+            showCart();
+            // showCart() is defined in site.js — it reads localStorage and builds the UI
+        });
+    </script>
+}

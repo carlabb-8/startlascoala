@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- default.svg — placeholder image shown when a product image is missing -->
+<!-- This SVG is a simple gray box with a book icon and "No Image" text -->
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- Background gray rectangle -->
+  <rect width="300" height="200" fill="#e5e7eb"/>
+  <!-- Book icon lines in the center -->
+  <text x="150" y="90" font-family="Arial" font-size="48" text-anchor="middle" fill="#9ca3af">📚</text>
+  <!-- "No Image" text below icon -->
+  <text x="150" y="135" font-family="Arial" font-size="14" text-anchor="middle" fill="#6b7280">Imagine indisponibila</text>
+</svg>

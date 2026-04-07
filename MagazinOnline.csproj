@@ -1,0 +1,23 @@
+<!-- This is the project file for the ASP.NET Core MVC application -->
+<!-- It tells .NET what kind of project this is and which packages to use -->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <!-- Sdk="Microsoft.NET.Sdk.Web" means this is a web application project -->
+
+  <PropertyGroup>
+    <!-- PropertyGroup holds general settings for the project -->
+
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- TargetFramework specifies which version of .NET to use (version 8.0 here) -->
+
+    <Nullable>enable</Nullable>
+    <!-- Nullable=enable turns on warnings when a variable might be null unexpectedly -->
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- ImplicitUsings=enable automatically adds common namespaces so we don't have to type "using System;" etc. -->
+
+    <RootNamespace>MagazinOnline</RootNamespace>
+    <!-- RootNamespace sets the default namespace name for all C# files in this project -->
+
+  </PropertyGroup>
+
+</Project>

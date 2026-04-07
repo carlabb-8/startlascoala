@@ -1,0 +1,1955 @@
+/* style.css — foaia de stiluri principală pentru site-ul Start la Școală */
+/* Toate stilurile vizuale: culori, layout, fonturi, animații și responsivitate */
+
+/* ============================================================
+   1. VARIABILE CSS (Proprietăți Personalizate)
+   Definim valori reutilizabile de culori și dimensiuni folosite în tot fișierul
+   ============================================================ */
+
+:root {
+    /* :root țintează elementul HTML — variabilele definite aici funcționează peste tot */
+
+    /* Paleta de culori primare */
+    --primary: #2563eb;         /* Albastrul principal — pentru butoane și link-uri primare */
+    --primary-dark: #1d4ed8;    /* Albastru mai închis pentru stări hover */
+    --primary-light: #dbeafe;   /* Albastru foarte deschis pentru fundaluri */
+
+    /* Culori secundare / accent */
+    --secondary: #7c3aed;       /* Violet — pentru butoane secundare */
+    --secondary-dark: #6d28d9;  /* Violet mai închis pentru hover */
+
+    /* Culori de succes și pericol */
+    --success: #16a34a;         /* Verde — pentru mesaje de succes și badge-uri */
+    --danger: #dc2626;          /* Roșu — pentru butoane de ștergere/eliminare */
+    --warning: #d97706;         /* Portocaliu — pentru avertismente */
+
+    /* Nuanțe de gri */
+    --gray-50: #f9fafb;         /* Aproape alb — fundalul paginii */
+    --gray-100: #f3f4f6;        /* Gri foarte deschis — fundaluri carduri */
+    --gray-200: #e5e7eb;        /* Gri deschis — borduri */
+    --gray-300: #d1d5db;        /* Gri mediu-deschis — borduri input */
+    --gray-500: #6b7280;        /* Gri mediu — text secundar */
+    --gray-700: #374151;        /* Gri închis — pentru titluri */
+    --gray-900: #111827;        /* Aproape negru — culoarea principală a textului */
+
+    /* Culori text */
+    --text-primary: #111827;    /* Culoare închisă pentru textul principal */
+    --text-secondary: #6b7280;  /* Gri mai deschis pentru subtitruri și capțiuni */
+    --text-white: #ffffff;      /* Text alb pe fundaluri închise */
+
+    /* Culori fundal */
+    --bg-white: #ffffff;        /* Fundal alb pur */
+    --bg-light: #f9fafb;        /* Fundal deschis al paginii */
+
+    /* Bordură */
+    --border: #e5e7eb;          /* Culoarea implicită a bordurii pentru carduri și inputuri */
+
+    /* Raza bordurii (colțuri rotunjite) */
+    --radius-sm: 6px;           /* Rotunjire mică pentru butoane */
+    --radius-md: 12px;          /* Rotunjire medie pentru carduri */
+    --radius-lg: 20px;          /* Rotunjire mare pentru secțiuni hero */
+    --radius-full: 9999px;      /* Complet rotunjit — pentru cercuri și pill-uri */
+
+    /* Umbre */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);        /* Umbră subtilă pentru carduri */
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);        /* Umbră medie pentru hover */
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);      /* Umbră puternică pentru modals */
+
+    /* Tranziții (viteza animațiilor) */
+    --transition: all 0.3s ease;    /* Tranziție lină implicită pentru efecte hover */
+
+    /* Înălțimea navbar-ului — folosită pentru spațiere sub el */
+    --navbar-height: 70px;          /* Înălțimea barei de navigație fixe */
+}
+
+/* ============================================================
+   2. RESET & STILURI DE BAZĂ
+   Eliminăm stilurile implicite ale browser-ului pentru consistență între browsere
+   ============================================================ */
+
+/* Selectorul universal * se aplică FIECĂRUI element */
+* {
+    margin: 0;              /* Eliminăm toate marginile implicite */
+    padding: 0;             /* Eliminăm tot padding-ul implicit (spațierea internă) */
+    box-sizing: border-box; /* Includem padding și border în calculele de lățime/înălțime */
+}
+
+/* Setăm fontul și culoarea de bază pentru întreaga pagină */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Stivă de fonturi: se încearcă Segoe UI mai întâi, revenire la fonturi de sistem */
+    font-size: 16px;        /* Dimensiunea de bază a fontului — valorile rem sunt relative la aceasta */
+    color: var(--text-primary);     /* Culoare text gri închis/negru */
+    background-color: var(--bg-light); /* Fundal deschis al paginii */
+    line-height: 1.6;       /* Înălțime de linie 1.6× dimensiunea fontului pentru lizibilitate */
+}
+
+/* Defilare lină la clic pe link-uri ancoră care sar la secțiuni */
+html {
+    scroll-behavior: smooth; /* Animăm defilarea în loc de salt instant */
+}
+
+/* Eliminăm sublinierea din toate link-urile; moștenesc culoarea din părinte */
+a {
+    text-decoration: none;  /* Eliminăm sublinierea implicită */
+    color: inherit;         /* Folosim culoarea textului elementului părinte */
+}
+
+/* Eliminăm punctele din toate listele */
+ul {
+    list-style: none; /* Eliminăm punctele implicite */
+}
+
+/* Facem imaginile responsive — niciodată mai late decât containerul lor */
+img {
+    max-width: 100%;    /* Imaginea se va micșora dacă containerul este mai mic */
+    height: auto;       /* Păstrăm raportul de aspect când lățimea se schimbă */
+    display: block;     /* Eliminăm spațiul suplimentar de jos pe care îl au imaginile inline */
+}
+
+/* ============================================================
+   3. BARA DE NAVIGAȚIE
+   Navigație fixă lipită în sus pe fiecare pagină
+   ============================================================ */
+
+.navbar {
+    position: fixed;            /* Rămâne în sus chiar și la defilare */
+    top: 0;                     /* Aliniem la marginea superioară a viewport-ului */
+    left: 0;                    /* Aliniem la marginea din stânga */
+    right: 0;                   /* Extindem la marginea din dreapta (lățime completă) */
+    height: var(--navbar-height); /* Folosim variabila CSS pentru înălțime */
+    background-color: var(--bg-white); /* Fundal alb */
+    border-bottom: 1px solid var(--border); /* Linie gri subtilă la bază */
+    display: flex;              /* Flexbox pentru aranjarea elementelor copil în rând */
+    align-items: center;        /* Centrăm vertical toate elementele din navbar */
+    padding: 0 2rem;            /* Adăugăm padding orizontal (stânga și dreapta) */
+    z-index: 1000;              /* Peste tot celălalt conținut */
+    box-shadow: var(--shadow-sm); /* Umbră ușoară sub navbar */
+    gap: 1.5rem;                /* Spațiu între secțiunile navbar-ului */
+}
+
+/* Logo/nume brand în stânga */
+.navbar-brand {
+    flex-shrink: 0; /* Nu lăsăm brandul să se micșoreze dacă spațiul este redus */
+}
+
+/* Link-ul clickabil al brandului (logo + numele magazinului) */
+.brand-link {
+    display: flex;      /* Aranjăm iconița și textul în rând */
+    align-items: center; /* Centrăm vertical iconița și textul */
+    gap: 0.5rem;        /* Spațiu între iconița și text */
+}
+
+/* Imaginea logo din bara de navigație */
+.brand-logo {
+    height: 52px;           /* Înălțimea logo-ului în navbar */
+    width: auto;            /* Lățimea se ajustează automat proporțional */
+    object-fit: contain;    /* Imaginea nu se deformează */
+    display: block;         /* Elimină spațiul alb implicit al elementelor inline */
+}
+
+/* Iconița emoji lângă numele brandului */
+.brand-icon {
+    font-size: 1.5rem; /* Facem emoji-ul mai mare */
+}
+
+/* Textul numelui magazinului */
+.brand-text {
+    font-size: 1.25rem;             /* Puțin mai mare decât textul corpului */
+    font-weight: 700;               /* Îngroșat */
+    color: var(--primary);          /* Culoarea albastră a brandului */
+    letter-spacing: -0.5px;         /* Spațiere ușor mai strânsă a literelor */
+}
+
+/* Containerul link-urilor de navigație */
+.navbar-nav {
+    display: flex;          /* Aranjăm link-urile în rând */
+    align-items: center;    /* Centrăm vertical link-urile */
+    gap: 0.25rem;           /* Spațiu mic între fiecare link de navigație */
+    flex: 1;                /* Ocupăm spațiul disponibil între brand și căutare */
+}
+
+/* Link individual de navigație */
+.nav-link {
+    padding: 0.5rem 0.75rem;    /* Spațiu în interiorul fiecărui link (sus/jos, stânga/dreapta) */
+    border-radius: var(--radius-sm); /* Colțuri rotunjite */
+    color: var(--gray-700);         /* Text gri închis */
+    font-weight: 500;               /* Semi-îngroșat */
+    font-size: 0.9rem;              /* Puțin mai mic decât textul corpului */
+    transition: var(--transition);  /* Schimbare lină a culorii la hover */
+    white-space: nowrap;            /* Împiedicăm textul link-ului să se înfășoare pe linia următoare */
+}
+
+/* Starea hover pentru link-urile de navigație */
+.nav-link:hover {
+    background-color: var(--primary-light); /* Fundal albastru deschis la hover */
+    color: var(--primary);                  /* Text albastru la hover */
+}
+
+/* Link de navigație activ (pagina curentă) */
+.nav-link.active {
+    background-color: var(--primary);   /* Fundal albastru solid pentru pagina curentă */
+    color: var(--text-white);           /* Text alb pe fundal albastru */
+}
+
+/* Link coș cu badge */
+.cart-link {
+    display: flex;          /* Layout în rând pentru iconița, badge și text */
+    align-items: center;    /* Centrăm vertical */
+    gap: 0.3rem;            /* Spațiu mic între iconița, badge și text */
+    position: relative;     /* Necesar pentru poziționarea absolută a badge-ului */
+}
+
+/* Badge roșu cu număr pe iconița coșului */
+.cart-badge {
+    background-color: var(--danger);    /* Fundal roșu */
+    color: white;                       /* Text alb */
+    border-radius: var(--radius-full);  /* Formă pill complet rotundă */
+    padding: 0.1rem 0.4rem;             /* Padding strâns pentru pill mic */
+    font-size: 0.7rem;                  /* Text mic în interiorul badge-ului */
+    font-weight: 700;                   /* Număr îngroșat */
+    min-width: 18px;                    /* Lățime minimă pentru centrarea cifrelor individuale */
+    text-align: center;                 /* Centrăm numărul */
+}
+
+/* Containerul inputului de căutare și butonului în dreapta navbar-ului */
+.navbar-search {
+    display: flex;          /* Layout în rând pentru input + buton */
+    align-items: center;    /* Centrăm vertical */
+    gap: 0;                 /* Fără spațiu — inputul și butonul se ating */
+    flex-shrink: 0;         /* Nu se micșorează când spațiul este limitat */
+}
+
+/* Câmpul de text pentru căutare */
+.search-input {
+    padding: 0.4rem 0.75rem;            /* Spațiere internă */
+    border: 1px solid var(--border);    /* Bordură gri */
+    border-right: none;                 /* Eliminăm bordura dreaptă (butonul asigură marginea dreaptă) */
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm); /* Rotunjim colțurile din stânga */
+    font-size: 0.9rem;                  /* Dimensiune mică a fontului */
+    width: 200px;                       /* Lățime fixă pentru caseta de căutare */
+    outline: none;                      /* Eliminăm conturul implicit de focus */
+    transition: var(--transition);      /* Tranziție lină la focus */
+}
+
+/* Input căutare când este focusat (clic în interiorul lui) */
+.search-input:focus {
+    border-color: var(--primary);   /* Schimbăm bordura la albastru când este activ */
+    box-shadow: 0 0 0 2px var(--primary-light); /* Strălucire albastru deschis în jurul inputului */
+}
+
+/* Butonul de trimitere a căutării */
+.search-btn {
+    padding: 0.4rem 0.75rem;                /* Potrivim padding-ul inputului */
+    background-color: var(--primary);       /* Fundal albastru */
+    color: white;                           /* Iconița albă */
+    border: none;                           /* Fără bordură */
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0; /* Rotunjim colțurile din dreapta */
+    cursor: pointer;                        /* Cursor mână la hover */
+    transition: var(--transition);          /* Efect hover lin */
+    font-size: 0.9rem;                      /* Dimensiunea fontului pentru iconița */
+}
+
+/* Starea hover a butonului de căutare */
+.search-btn:hover {
+    background-color: var(--primary-dark); /* Albastru mai închis la hover */
+}
+
+/* Butonul hamburger pentru mobil — ascuns pe desktop */
+.navbar-toggle {
+    display: none;              /* Ascuns implicit (afișat doar pe mobil via @media) */
+    flex-direction: column;     /* Stivuim cele trei span-uri vertical */
+    gap: 5px;                   /* Spațiu între liniile hamburgerului */
+    background: none;           /* Fără fundal */
+    border: none;               /* Fără bordură */
+    cursor: pointer;            /* Cursor mână */
+    padding: 0.5rem;            /* Padding pentru zona clickabilă */
+}
+
+/* Fiecare linie a iconiței hamburger */
+.navbar-toggle span {
+    display: block;                         /* Facem span un element de bloc */
+    width: 24px;                            /* Lățimea liniei */
+    height: 2px;                            /* Grosimea liniei */
+    background-color: var(--gray-700);      /* Culoare gri închis */
+    border-radius: var(--radius-full);      /* Capete rotunjite */
+    transition: var(--transition);          /* Animăm la toggle */
+}
+
+/* ============================================================
+   4. CONȚINUT PRINCIPAL
+   Offset conținut sub navbar-ul fix
+   ============================================================ */
+
+/* Zona de conținut principal — împinge în jos pentru a nu se ascunde sub navbar-ul fix */
+.main-content {
+    margin-top: var(--navbar-height); /* Împingem conținutul în jos cu înălțimea navbar-ului */
+    min-height: calc(100vh - var(--navbar-height)); /* Cel puțin înălțimea completă a ecranului */
+}
+
+/* ============================================================
+   5. SECȚIUNEA HERO (Pagina principală)
+   Banner mare în partea de sus a paginii principale
+   ============================================================ */
+
+.hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #7c3aed 100%);
+    /* Gradient diagonal de la bleumarin închis la albastru la violet */
+    color: white;           /* Text alb în tot hero-ul */
+    padding: 5rem 2rem;     /* Padding mare sus/jos pentru spațiu vertical */
+    display: flex;          /* Layout în rând: text în stânga, imagine în dreapta */
+    align-items: center;    /* Centrăm vertical ambele coloane */
+    justify-content: center; /* Centrăm conținutul orizontal */
+    gap: 3rem;              /* Spațiu între coloana de text și ilustrație */
+    min-height: 500px;      /* Înălțime minimă pentru secțiunea hero */
+}
+
+/* Conținut text în hero — coloana din stânga */
+.hero-content {
+    max-width: 600px;   /* Limităm lățimea textului pentru lizibilitate */
+    flex: 1;            /* Ocupăm spațiul orizontal disponibil */
+}
+
+/* Titlul mare din hero */
+.hero-title {
+    font-size: 3rem;        /* Text titlu foarte mare */
+    font-weight: 800;       /* Extra îngroșat */
+    line-height: 1.2;       /* Înălțime de linie strânsă pentru text de afișare */
+    margin-bottom: 1rem;    /* Spațiu sub titlu */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Umbră subtilă pentru profunzime */
+}
+
+/* Paragraful subtitlu din hero */
+.hero-subtitle {
+    font-size: 1.25rem;             /* Mai mare decât textul corpului */
+    opacity: 0.9;                   /* Ușor transparent */
+    margin-bottom: 2rem;            /* Spațiu sub subtitlu înainte de butoane */
+    line-height: 1.6;               /* Înălțime de linie confortabilă */
+}
+
+/* Container pentru cele două butoane CTA din hero */
+.hero-buttons {
+    display: flex;      /* Layout în rând */
+    gap: 1rem;          /* Spațiu între butoane */
+    flex-wrap: wrap;    /* Permite butoanelor să se înfășoare pe ecrane mici */
+}
+
+/* Partea dreaptă a hero-ului — zona ilustrației */
+.hero-image {
+    flex-shrink: 0;     /* Nu lăsăm ilustrația să se micșoreze */
+}
+
+/* Container pentru ilustrația emoji */
+.hero-illustration {
+    font-size: 8rem;            /* Dimensiune emoji gigantică */
+    animation: float 3s ease-in-out infinite; /* Animație de plutire sus-jos */
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); /* Umbră sub emoji */
+}
+
+/* Animație keyframe pentru emoji-ul plutitor din hero */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }      /* Pornire și finalizare la poziție normală */
+    50% { transform: translateY(-20px); }        /* Mișcare cu 20px ÎN SUS la mijloc */
+}
+
+/* ============================================================
+   6. HERO PAGINA (Pagini interioare - Cărți, Coș etc.)
+   Banner mai mic pentru paginile non-home
+   ============================================================ */
+
+.page-hero {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb); /* Gradient albastru închis */
+    color: white;               /* Text alb */
+    padding: 3rem 2rem;         /* Mai puțin padding decât hero-ul principal */
+    text-align: center;         /* Centrăm tot textul */
+}
+
+/* Hero pagina Cărți — tentă verde */
+.page-hero-books {
+    background: linear-gradient(135deg, #14532d, #16a34a); /* Verde închis la verde luminos */
+}
+
+/* Hero pagina Rechizite — tentă portocaliu */
+.page-hero-supplies {
+    background: linear-gradient(135deg, #92400e, #d97706); /* Portocaliu închis la portocaliu luminos */
+}
+
+/* Hero pagina Coș — tentă violet */
+.page-hero-cart {
+    background: linear-gradient(135deg, #4c1d95, #7c3aed); /* Violet închis la violet luminos */
+}
+
+/* Hero pagina Checkout — la fel cu coșul */
+.page-hero-checkout {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb, #7c3aed); /* Gradient albastru-violet */
+}
+
+/* Conținut text din interiorul hero-ului paginii */
+.page-hero-content h1 {
+    font-size: 2.5rem;      /* Titlu mare */
+    font-weight: 800;       /* Extra îngroșat */
+    margin-bottom: 0.5rem;  /* Spațiu sub titlu */
+}
+
+/* Subtitlul din interiorul hero-ului paginii */
+.page-hero-content p {
+    font-size: 1.1rem;  /* Ușor mai mare decât corpul */
+    opacity: 0.85;      /* Ușor estompat */
+}
+
+/* ============================================================
+   7. ANTETURI DE SECȚIUNE
+   Bloc de titlu reutilizat pentru secțiuni pe tot site-ul
+   ============================================================ */
+
+/* Bloc generic antet secțiune */
+.section-header {
+    text-align: center;     /* Centrăm titlul și subtitlul */
+    margin-bottom: 2.5rem;  /* Spațiu de jos înainte de conținutul secțiunii */
+}
+
+/* Textul titlului secțiunii */
+.section-header h2 {
+    font-size: 2rem;            /* Titlu mare de secțiune */
+    font-weight: 700;           /* Îngroșat */
+    color: var(--gray-900);     /* Text închis */
+    margin-bottom: 0.5rem;      /* Spațiu sub titlu */
+}
+
+/* Subtitlul secțiunii sub titlu */
+.section-header p {
+    color: var(--text-secondary); /* Culoare gri pentru subtitlu */
+    font-size: 1.05rem;           /* Ușor mai mare decât textul normal */
+}
+
+/* ============================================================
+   8. CARDURI PRODUSE
+   Carduri folosite pentru afișarea produselor individuale într-un grid
+   ============================================================ */
+
+/* Secțiunea container pentru toate secțiunile de produse */
+.products-section {
+    padding: 3rem 2rem;         /* Spațiu în jurul întregii secțiuni */
+    max-width: 1400px;          /* Lățime maximă pentru a nu se extinde prea mult pe ecrane mari */
+    margin: 0 auto;             /* Centrăm secțiunea orizontal */
+}
+
+/* Layout CSS Grid pentru carduri produse */
+.products-grid {
+    display: grid;
+    /* Creăm coloane: fiecare cu minimum 260px lățime, cât de multe încap */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;    /* Spațiu între carduri */
+}
+
+/* Card individual de produs */
+.product-card {
+    background: var(--bg-white);            /* Fundal alb al cardului */
+    border-radius: var(--radius-md);        /* Colțuri rotunjite */
+    border: 1px solid var(--border);        /* Contur bordură subtilă */
+    overflow: hidden;                       /* Ascundem conținut care iese din afara colțurilor rotunjite */
+    transition: var(--transition);          /* Transform și umbră lină la hover */
+    cursor: pointer;                        /* Cursor mână pentru a indica interactivitate */
+    animation: fadeInUp 0.5s ease both;     /* Animație fade-up când apare cardul */
+}
+
+/* Starea hover a cardului de produs */
+.product-card:hover {
+    transform: translateY(-6px);        /* Mutăm cardul cu 6px ÎN SUS la hover */
+    box-shadow: var(--shadow-lg);       /* Adăugăm umbră puternică pentru efect "ridicat" */
+    border-color: var(--primary);       /* Schimbăm bordura la albastru la hover */
+}
+
+/* Zona imaginii din interiorul cardului de produs */
+.product-image {
+    position: relative;                 /* Necesar pentru poziționarea absolută a badge-ului */
+    height: 200px;                      /* Înălțime fixă pentru toate imaginile produselor */
+    overflow: hidden;                   /* Ascundem overflow dacă imaginea este mai mare */
+    background-color: var(--gray-100);  /* Fundal gri deschis placeholder */
+}
+
+/* Elementul <img> al produsului */
+.product-image img {
+    width: 100%;                    /* Umple lățimea completă a containerului */
+    height: 100%;                   /* Umple înălțimea completă a containerului */
+    object-fit: cover;              /* Decupăm imaginea pentru a acoperi zona fără distorsiune */
+    transition: var(--transition);  /* Efect zoom lin la hover */
+}
+
+/* Zoom pe imagine când cardul este hoverat */
+.product-card:hover .product-image img {
+    transform: scale(1.05); /* Scalăm imaginea la 105% pentru efect zoom subtil */
+}
+
+/* Badge categorie/subcategorie în colțul stânga-sus al imaginii */
+.product-badge {
+    position: absolute;                     /* Poziționat relativ la .product-image */
+    top: 0.75rem;                           /* Distanța de la vârf */
+    left: 0.75rem;                          /* Distanța de la stânga */
+    background-color: var(--primary);       /* Fundal albastru */
+    color: white;                           /* Text alb */
+    padding: 0.2rem 0.6rem;                 /* Padding mic */
+    border-radius: var(--radius-full);      /* Formă pill */
+    font-size: 0.7rem;                      /* Text foarte mic */
+    font-weight: 600;                       /* Semi-îngroșat */
+    text-transform: uppercase;              /* Text CU MAJUSCULE */
+    letter-spacing: 0.5px;                  /* Spațiere ușor mai largă a literelor */
+}
+
+/* Secțiunea de informații text din interiorul cardului de produs */
+.product-info {
+    padding: 1rem;              /* Padding intern în jurul textului */
+    display: flex;              /* Layout flex coloană */
+    flex-direction: column;     /* Stivuim vertical: nume, descriere, footer */
+    gap: 0.5rem;                /* Spațiu între fiecare element */
+    height: calc(100% - 200px); /* Ocupăm spațiul rămas sub imagine */
+}
+
+/* Titlul numelui produsului */
+.product-name {
+    font-size: 0.95rem;         /* Ușor mai mic decât corpul */
+    font-weight: 600;           /* Semi-îngroșat */
+    color: var(--gray-900);     /* Text închis */
+    line-height: 1.4;           /* Înălțime de linie confortabilă */
+    /* Limităm la 2 linii cu elipsă dacă este prea lung */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      /* Afișăm maximum 2 linii (browsere WebKit: Chrome, Safari) */
+    line-clamp: 2;              /* Proprietate standard pentru compatibilitate viitoare */
+    -webkit-box-orient: vertical;
+    overflow: hidden;           /* Ascundem textul peste 2 linii */
+}
+
+/* Descrierea scurtă a produsului */
+.product-description {
+    font-size: 0.85rem;                 /* Text mic */
+    color: var(--text-secondary);       /* Culoare gri */
+    line-height: 1.5;
+    /* Limităm la 2 linii */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      /* Afișăm maximum 2 linii (browsere WebKit: Chrome, Safari) */
+    line-clamp: 2;              /* Proprietate standard pentru compatibilitate viitoare */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;                    /* Împingem footer-ul la baza cardului */
+}
+
+/* Rândul de jos: preț în stânga, buton în dreapta */
+.product-footer {
+    display: flex;              /* Layout în rând */
+    align-items: center;        /* Centrăm vertical prețul și butonul */
+    justify-content: space-between; /* Împingem prețul la stânga, butonul la dreapta */
+    margin-top: auto;           /* Împingem la baza cardului */
+}
+
+/* Textul prețului */
+.product-price {
+    font-size: 1.1rem;              /* Mai mare decât textul normal */
+    font-weight: 700;               /* Îngroșat */
+    color: var(--primary);          /* Culoarea albastră a prețului */
+}
+
+/* ============================================================
+   9. BUTOANE
+   Stiluri de butoane reutilizabile folosite pe tot site-ul
+   ============================================================ */
+
+/* Stiluri de bază ale butonului partajate de toate butoanele */
+.btn {
+    display: inline-flex;       /* Flex pentru centrarea iconița + text */
+    align-items: center;        /* Centrăm vertical conținutul */
+    gap: 0.4rem;                /* Spațiu între iconița și text */
+    padding: 0.6rem 1.2rem;     /* Spațiere internă */
+    border-radius: var(--radius-sm); /* Colțuri rotunjite */
+    font-size: 0.9rem;          /* Dimensiunea textului butonului */
+    font-weight: 600;           /* Text semi-îngroșat */
+    cursor: pointer;            /* Cursor mână */
+    border: none;               /* Fără bordură implicit */
+    text-decoration: none;      /* Eliminăm sublinierea din butoanele <a> */
+    transition: var(--transition); /* Animație hover lină */
+    white-space: nowrap;        /* Prevenim înfășurarea textului */
+}
+
+/* Buton albastru primar */
+.btn-primary {
+    background-color: var(--primary);   /* Fundal albastru */
+    color: white;                       /* Text alb */
+}
+
+/* Hover buton primar */
+.btn-primary:hover {
+    background-color: var(--primary-dark); /* Albastru mai închis la hover */
+    transform: translateY(-2px);            /* Efect ușor de ridicare */
+    box-shadow: var(--shadow-md);           /* Umbră la hover */
+}
+
+/* Buton violet secundar */
+.btn-secondary {
+    background-color: var(--secondary);    /* Fundal violet */
+    color: white;                          /* Text alb */
+}
+
+/* Hover buton secundar */
+.btn-secondary:hover {
+    background-color: var(--secondary-dark); /* Violet mai închis */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Buton contur (transparent cu bordură) */
+.btn-outline {
+    background-color: transparent;         /* Fără fundal */
+    color: var(--primary);                 /* Text albastru */
+    border: 2px solid var(--primary);      /* Bordură albastră */
+}
+
+/* Hover buton contur */
+.btn-outline:hover {
+    background-color: var(--primary);      /* Umplere cu albastru la hover */
+    color: white;                          /* Text alb la hover */
+}
+
+/* Buton adaugă în coș (mic, folosit în carduri produse) */
+.btn-add-cart {
+    background-color: var(--primary);  /* Albastru */
+    color: white;
+    padding: 0.4rem 0.8rem;            /* Padding mai mic decât butonul complet */
+    font-size: 0.82rem;                /* Font mai mic */
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: var(--transition);
+}
+
+/* Hover buton adaugă în coș */
+.btn-add-cart:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Buton pericol / roșu (folosit pentru "Golește Coșul") */
+.btn-danger {
+    background-color: var(--danger);   /* Fundal roșu */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hover buton pericol */
+.btn-danger:hover {
+    background-color: #b91c1c; /* Roșu mai închis la hover */
+}
+
+/* Modificator dimensiune mică buton */
+.btn-sm {
+    padding: 0.35rem 0.75rem;  /* Padding compact */
+    font-size: 0.8rem;          /* Text mic */
+}
+
+/* Buton bloc lățime completă */
+.btn-block {
+    width: 100%;                /* Se extinde la lățimea completă a containerului */
+    justify-content: center;    /* Centrăm textul în interiorul butonului lățime completă */
+    margin-bottom: 0.75rem;     /* Spațiu între butoanele stivuite */
+}
+
+/* ============================================================
+   10. SECȚIUNEA CATEGORII (Pagina principală)
+   Trei carduri mari de categorii clickabile
+   ============================================================ */
+
+.categories-section {
+    padding: 3rem 2rem;     /* Padding secțiune */
+    max-width: 1400px;      /* Lățime maximă */
+    margin: 0 auto;         /* Centrăm orizontal */
+}
+
+/* Grid pe trei coloane pentru cardurile de categorii */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* auto-fit: câte coloane încap; minmax: fiecare cel puțin 280px, cel mult egale */
+    gap: 1.5rem;    /* Spațiu între cardurile de categorii */
+}
+
+/* Card individual de categorie — folosește eticheta anchor */
+.category-card {
+    background: var(--bg-white);            /* Fundal alb */
+    border: 2px solid var(--border);        /* Bordură gri */
+    border-radius: var(--radius-md);        /* Colțuri rotunjite */
+    padding: 2rem;                          /* Padding intern */
+    text-align: center;                     /* Centrăm tot conținutul */
+    transition: var(--transition);          /* Hover lin */
+    display: flex;                          /* Layout coloană */
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;                           /* Spațiu între elemente */
+    color: var(--text-primary);             /* Culoare text moștenită */
+}
+
+/* Hover card categorie */
+.category-card:hover {
+    border-color: var(--primary);           /* Bordură albastră la hover */
+    box-shadow: var(--shadow-lg);           /* Umbră puternică */
+    transform: translateY(-4px);            /* Efect de ridicare */
+}
+
+/* Iconița emoji mare din cardul de categorie */
+.category-icon {
+    font-size: 3.5rem;  /* Emoji gigantic */
+}
+
+/* Titlul numelui categoriei */
+.category-card h3 {
+    font-size: 1.3rem;          /* Mai mare decât corpul */
+    font-weight: 700;           /* Îngroșat */
+    color: var(--primary);      /* Culoare albastră */
+}
+
+/* Textul descrierii categoriei */
+.category-card p {
+    color: var(--text-secondary);   /* Culoare gri */
+    font-size: 0.9rem;              /* Mic */
+}
+
+/* Pill cu numărul produselor la baza cardului de categorie */
+.category-count {
+    background-color: var(--primary-light); /* Fundal albastru deschis */
+    color: var(--primary);                  /* Text albastru */
+    padding: 0.2rem 0.8rem;
+    border-radius: var(--radius-full);      /* Formă pill */
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ============================================================
+   11. SECȚIUNEA AVANTAJE (Pagina principală)
+   Carduri cu avantajele "De ce să ne alegi"
+   ============================================================ */
+
+.features-section {
+    background-color: var(--primary);   /* Secțiune cu fundal albastru */
+    color: white;                       /* Text alb pe tot parcursul */
+    padding: 4rem 2rem;                 /* Padding mare */
+}
+
+/* Suprascriem culoarea textului antetului secțiunii la alb */
+.features-section .section-header h2 {
+    color: white; /* Titlu alb pe fundal albastru */
+}
+
+/* Grid de carduri avantaje */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card individual avantaj */
+.feature-card {
+    text-align: center;     /* Centrăm tot conținutul */
+    padding: 1.5rem;        /* Padding intern */
+}
+
+/* Iconița emoji avantaj */
+.feature-icon {
+    font-size: 3rem;        /* Emoji mare */
+    margin-bottom: 1rem;    /* Spațiu sub iconița */
+}
+
+/* Titlul cardului avantaj */
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Textul descrierii cardului avantaj */
+.feature-card p {
+    opacity: 0.85;          /* Alb ușor estompat */
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Footer-ul secțiunii cu două butoane "Vezi toate" */
+.section-footer {
+    text-align: center;     /* Centrăm butoanele */
+    margin-top: 2rem;       /* Spațiu deasupra */
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   12. BARA DE FILTRARE (Paginile Cărți și Rechizite)
+   Filtre orizontale și opțiuni de sortare
+   ============================================================ */
+
+.filter-bar {
+    background: var(--bg-white);        /* Fundal alb */
+    border-bottom: 1px solid var(--border); /* Bordură jos */
+    padding: 1rem 2rem;                 /* Padding */
+    display: flex;                      /* Layout în rând */
+    align-items: center;                /* Centrăm vertical */
+    justify-content: space-between;     /* Împingem filtrele și sortarea la capete opuse */
+    flex-wrap: wrap;                    /* Permite înfășurarea pe ecrane mici */
+    gap: 1rem;                          /* Spațiu între secțiunile de filtru și sortare */
+    position: sticky;                   /* Lipim sub navbar la defilare */
+    top: var(--navbar-height);          /* Poziționăm imediat sub navbar */
+    z-index: 900;                       /* Peste conținutul paginii */
+}
+
+/* Container pentru butoanele de filtrare */
+.filter-container {
+    display: flex;
+    gap: 0.5rem;            /* Spațiu mic între butoane */
+    flex-wrap: wrap;        /* Înfășurare pe linia următoare pe ecrane mici */
+}
+
+/* Buton de filtrare */
+.filter-btn {
+    padding: 0.4rem 1rem;               /* Padding */
+    border: 2px solid var(--border);    /* Bordură gri */
+    border-radius: var(--radius-full);  /* Formă pill */
+    background: none;                   /* Fundal transparent */
+    color: var(--gray-700);             /* Text gri închis */
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* Hover buton de filtrare */
+.filter-btn:hover {
+    border-color: var(--primary);   /* Bordură albastră la hover */
+    color: var(--primary);          /* Text albastru la hover */
+}
+
+/* Buton de filtrare activ/selectat */
+.filter-btn.active {
+    background-color: var(--primary);   /* Fundal albastru când este activ */
+    border-color: var(--primary);
+    color: white;                       /* Text alb când este activ */
+}
+
+/* Container pentru dropdown-ul de sortare */
+.sort-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;            /* Spațiu între etichetă și dropdown */
+}
+
+/* Textul etichetei "Sortează după:" */
+.sort-container label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);   /* Text gri */
+    white-space: nowrap;
+}
+
+/* Elementul select dropdown pentru sortare */
+.sort-select {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    background: var(--bg-white);
+    cursor: pointer;
+    outline: none;
+}
+
+/* ============================================================
+   13. ANTETE GRUPĂ DE VÂRSTĂ (Pagina Rechizite)
+   Separatoare vizuale de secțiune pentru fiecare grupă de vârstă
+   ============================================================ */
+
+.age-group-header {
+    padding: 1.5rem 2rem 0.5rem;    /* Padding în jurul antetului */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Badge colorat care arată grupa de vârstă */
+.age-badge {
+    display: inline-block;              /* Inline pentru a nu ocupa lățimea completă */
+    background-color: var(--success);   /* Fundal verde */
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: var(--radius-full);  /* Formă pill */
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Badge grupă de vârstă școlară medie — albastru */
+.age-badge-mid {
+    background-color: var(--primary);   /* Albastru pentru școala medie */
+}
+
+/* Badge grupă de vârstă liceu — violet */
+.age-badge-high {
+    background-color: var(--secondary); /* Violet pentru liceu */
+}
+
+/* Titlul grupei de vârstă */
+.age-group-header h2 {
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+}
+
+/* Subtitlul grupei de vârstă */
+.age-group-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   14. MESAJUL NICIUN REZULTAT
+   Afișat când căutarea sau filtrarea nu găsește nimic
+   ============================================================ */
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;         /* Padding mare pentru a umple spațiul gol */
+    color: var(--text-secondary);
+}
+
+/* Iconița mare din zona fără rezultate */
+.no-results-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Titlul "Niciun produs găsit" */
+.no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+}
+
+/* ============================================================
+   15. PAGINA COȘ
+   Layout pentru pagina coșului de cumpărături
+   ============================================================ */
+
+.cart-section {
+    padding: 2rem;              /* Padding pagină */
+    max-width: 1200px;          /* Lățime maximă */
+    margin: 0 auto;             /* Centrăm orizontal */
+}
+
+/* Layout pe două coloane: lista coș + rezumat unul lângă altul */
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;   /* Coloana stânga flexibilă, coloana dreapta fixă 360px */
+    gap: 2rem;                          /* Spațiu între coloane */
+    align-items: start;                 /* Aliniem ambele coloane la vârfurile lor */
+}
+
+/* ---- Mesaj coș gol ---- */
+.empty-cart {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+/* Emoji mare coș în starea goală */
+.empty-cart-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+/* Titlul "Coșul tău este gol" */
+.empty-cart h2 {
+    font-size: 1.75rem;
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+}
+
+/* Textul descrierii coșului gol */
+.empty-cart p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Container Butoane în coșul gol */
+.empty-cart-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ---- Lista articolelor din coș ---- */
+.cart-items-header {
+    display: flex;
+    justify-content: space-between;     /* Titlu în stânga, buton Golire în dreapta */
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Titlul "Produse în coș" */
+.cart-items-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* Rândul individual al articolului din coș */
+.cart-item-row {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;                  /* Layout în rând */
+    align-items: center;            /* Centrăm vertical */
+    gap: 1rem;                      /* Spațiu între elemente */
+    transition: var(--transition);
+}
+
+/* Hover rând articol din coș */
+.cart-item-row:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--primary);
+}
+
+/* Zona cu numele și prețul produsului din rândul articolului din coș */
+.cart-item-details {
+    flex: 1;            /* Ocupăm cea mai mare parte a rândului */
+}
+
+/* Numele produsului în coș */
+.cart-item-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--gray-900);
+    margin-bottom: 0.25rem;
+}
+
+/* Textul prețului unitar al articolului în coș */
+.cart-item-price {
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Controale cantitate: buton minus, număr, buton plus */
+.cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Butoanele de ajustare a cantității: plus/minus */
+.qty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);  /* Buton circular */
+    border: 2px solid var(--border);
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+/* Hover buton cantitate */
+.qty-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Afișajul numărului cantității între butoane */
+.qty-number {
+    font-weight: 600;
+    min-width: 24px;            /* Lățime minimă pentru a preveni schimbarea layout-ului */
+    text-align: center;
+}
+
+/* Prețul total al articolului (preț × cantitate) */
+.cart-item-total {
+    font-weight: 700;
+    color: var(--gray-900);
+    min-width: 80px;
+    text-align: right;
+}
+
+/* Butonul de eliminare (iconița coș de gunoi) */
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: var(--danger);   /* Iconița roșie coș de gunoi */
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    transition: var(--transition);
+}
+
+/* Hover buton de eliminare */
+.cart-item-remove:hover {
+    transform: scale(1.2); /* Mărești iconița la hover */
+}
+
+/* ---- Panoul de rezumat al coșului ---- */
+.cart-summary {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    position: sticky;               /* Lipit în sus la ecran la defilare */
+    top: calc(var(--navbar-height) + 1rem); /* Rămâne sub navbar */
+}
+
+/* Titlul "Rezumat comandă" */
+.summary-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Fiecare rând din rezumat (etichetă: valoare) */
+.summary-row {
+    display: flex;
+    justify-content: space-between; /* Eticheta în stânga, valoarea în dreapta */
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--gray-700);
+}
+
+/* Rândul Total — stilizat diferit */
+.summary-total {
+    font-size: 1.1rem;
+    color: var(--gray-900);
+    padding-top: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+/* Linia separatoare orizontală din interiorul rezumatului */
+.summary-divider {
+    border-top: 1px solid var(--border);
+    margin: 1rem 0;
+}
+
+/* ============================================================
+   16. PAGINA CHECKOUT
+   Layout formular de checkout cu mai mulți pași
+   ============================================================ */
+
+/* Banner de avertizare simulare galben */
+.simulation-notice {
+    background-color: #fef3c7;          /* Fundal galben deschis */
+    border: 1px solid #f59e0b;          /* Bordură portocalie */
+    color: #92400e;                     /* Text maro închis */
+    padding: 0.75rem 2rem;              /* Padding */
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.checkout-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Layout pe două coloane: formular + rezumat */
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;   /* Formularul ocupă coloana principală, rezumatul 360px */
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Container pentru toate casetele de pași checkout */
+.checkout-form-container {
+    display: flex;
+    flex-direction: column; /* Stivuim pașii vertical */
+    gap: 1.5rem;
+}
+
+/* Caseta individuală de pas checkout */
+.checkout-step {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+/* Antetul pasului cu cercul număr + titlu */
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Badge circular cu numărul pasului */
+.step-number {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary);   /* Cerc albastru */
+    color: white;
+    border-radius: var(--radius-full);  /* Cerc perfect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;                 /* Nu micșorăm cercul */
+}
+
+/* Titlul pasului */
+.step-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gray-900);
+}
+
+/* Badge-ul "SIMULARE" afișat în antetul pasului de plată */
+.sim-badge {
+    background-color: var(--warning);   /* Badge portocaliu */
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+
+/* Caseta de informații despre simularea plății */
+.payment-notice {
+    background-color: #fef3c7;  /* Galben deschis */
+    border: 1px solid #f59e0b;  /* Bordură portocalie */
+    color: #92400e;             /* Text maro închis */
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Opțiunile radio pentru metodele de plată */
+.payment-options {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Eticheta clickabilă pentru opțiunea de plată (înfășoară radio + iconița + text) */
+.payment-option {
+    flex: 1;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Hover opțiune de plată */
+.payment-option:hover {
+    border-color: var(--primary);
+}
+
+/* Opțiunea de plată când radio-ul ei este bifat */
+.payment-option:has(input:checked) {
+    border-color: var(--primary);   /* Bordură albastră când este selectat */
+    background-color: var(--primary-light); /* Fundal albastru deschis */
+}
+
+/* Conținutul interior al opțiunii de plată (iconița + text) */
+.payment-option-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Ascundem inputul radio — stilizarea vine din .payment-option */
+.payment-option input[type="radio"] {
+    display: none; /* Gestionăm starea selectată cu CSS :has() */
+}
+
+/* ---- Elemente de formular ---- */
+
+/* Grup formular: perechea etichetă + input */
+.form-group {
+    margin-bottom: 1rem; /* Spațiu sub fiecare grup de formular */
+}
+
+/* Etichetele formularului */
+.form-group label {
+    display: block;                 /* Eticheta pe propria linie deasupra inputului */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.35rem;         /* Spațiu între etichetă și input */
+}
+
+/* Stiluri input, select și textarea ale formularului */
+.form-control {
+    width: 100%;                    /* Lățime completă */
+    padding: 0.6rem 0.9rem;         /* Spațiere internă */
+    border: 1px solid var(--border); /* Bordură gri */
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    background: var(--bg-white);
+    transition: var(--transition);
+    outline: none;
+    font-family: inherit;           /* Folosim același font ca restul paginii */
+}
+
+/* Starea focus a controlului de formular */
+.form-control:focus {
+    border-color: var(--primary);   /* Bordură albastră la focus */
+    box-shadow: 0 0 0 3px var(--primary-light); /* Efect de strălucire albastru */
+}
+
+/* Două câmpuri de formular unul lângă altul pe un rând */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Două coloane egale */
+    gap: 1rem;
+}
+
+/* Panoul de rezumat al comenzii pe pagina de checkout */
+.checkout-summary {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    position: sticky;
+    top: calc(var(--navbar-height) + 1rem);
+}
+
+/* Rândul individual al articolului din rezumatul de checkout */
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--gray-100);
+}
+
+/* Numele produsului în rezumatul de checkout */
+.checkout-item-name {
+    color: var(--gray-700);
+    flex: 1;
+}
+
+/* Prețul în rezumatul de checkout */
+.checkout-item-price {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Noticul coș gol pe pagina de checkout */
+.empty-checkout-notice {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 1rem 0;
+}
+
+/* Butonul "Plasează Comanda" — mare și proeminent */
+.btn-order {
+    padding: 1rem;          /* Buton înalt */
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   17. MODALUL DE SUCCES AL COMENZII
+   Popup overlay afișat după plasarea comenzii
+   ============================================================ */
+
+/* Fundalul overlay pe tot ecranul */
+.modal {
+    position: fixed;            /* Acoperim întregul ecran */
+    inset: 0;                   /* 0 pe toate laturile: sus, dreapta, jos, stânga */
+    background-color: rgba(0,0,0,0.6); /* Overlay negru semi-transparent */
+    z-index: 9999;              /* Deasupra tuturor celorlalte */
+    display: flex;              /* Flex pentru centrarea cardului modal */
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* Cardul alb din interiorul modalului */
+.modal-content {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    animation: scaleIn 0.3s ease; /* Animație scale-in când se deschide modalul */
+}
+
+/* Zona iconița din modal */
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Titlul de succes din modal */
+.modal-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+/* Textul corpului din modal */
+.modal-content p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Disclaimer-ul de simulare din interiorul modalului */
+.modal-notice {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    color: #92400e;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+/* ============================================================
+   18. PAGINA DESPRE NOI
+   Stiluri pentru secțiunile paginii Despre Noi
+   ============================================================ */
+
+/* Banner imagine hero la începutul paginii Despre Noi */
+.about-hero-banner {
+    width: 100%;                /* Ocupă întreaga lățime a paginii */
+    max-height: 480px;          /* Înălțime maximă pentru imaginea hero */
+    overflow: hidden;           /* Ascunde ce depășește limitele */
+    display: flex;
+    justify-content: center;    /* Centrăm imaginea pe orizontală */
+    align-items: center;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%); /* Fundal gradient dacă imaginea nu se încarcă */
+}
+
+/* Imaginea propriu-zisă din banner-ul hero */
+.about-hero-img {
+    width: 100%;                /* Ocupă toată lățimea containerului */
+    max-height: 480px;          /* Înălțime maximă */
+    object-fit: cover;          /* Imaginea acoperă întreg spațiul, poate fi tăiată */
+    object-position: center top; /* Centrul de interes este sus-centru */
+    display: block;             /* Elimină spațiul alb implicit al elementelor inline */
+}
+
+/* Container logo afișat în secțiunea despre noi */
+.about-logo-display {
+    display: flex;
+    justify-content: center;    /* Centrăm logo-ul în coloana dreaptă */
+    align-items: center;
+    padding: 2rem;
+}
+
+/* Imaginea logo din secțiunea Despre Noi */
+.about-logo-img {
+    max-width: 320px;           /* Lățime maximă a logo-ului */
+    width: 100%;                /* Responsive: nu depășește containerul */
+    height: auto;               /* Înălțimea se ajustează automat */
+    object-fit: contain;        /* Imaginea nu se deformează */
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.12)); /* Umbră subtilă */
+}
+
+.about-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Layout pe două coloane pe pagina despre noi */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Două coloane egale */
+    gap: 3rem;
+    align-items: center;
+}
+
+/* Coloana de text */
+.about-text h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+/* Paragrafe în textul despre noi */
+.about-text p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+/* Decorațiune ilustrație emoji */
+.about-emoji-art {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    font-size: 4rem;
+    padding: 2rem;
+}
+
+/* Animăm fiecare emoji din ilustrația paginii despre noi */
+.about-emoji-art span {
+    animation: float 3s ease-in-out infinite;
+    /* Decalaj animație pentru fiecare emoji folosind nth-child */
+}
+
+.about-emoji-art span:nth-child(2) { animation-delay: 0.5s; }
+.about-emoji-art span:nth-child(3) { animation-delay: 1s; }
+.about-emoji-art span:nth-child(4) { animation-delay: 1.5s; }
+
+/* Secțiunea statistici */
+.stats-section {
+    background: var(--gray-100);
+    padding: 4rem 2rem;
+}
+
+/* Grilă de carduri statistice */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Card statistic individual */
+.stat-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+/* Hover pe cardul statistic */
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Numărul mare din cardul statistic */
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Eticheta sub număr */
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Secțiunea echipă */
+.team-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Grilă carduri echipă */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+}
+
+/* Card individual membru echipă */
+.team-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+/* Hover pe cardul echipă */
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary);
+}
+
+/* Avatar emoji al membrului din echipă */
+.team-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Numele membrului din echipă */
+.team-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+/* Rolul/poziția membrului din echipă */
+.team-role {
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* Textul bio al membrului din echipă */
+.team-card p:last-child {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* Secțiunea contact */
+.contact-section {
+    background: var(--gray-100);
+    padding: 4rem 2rem;
+}
+
+/* Grilă elemente info contact */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Card metodă de contact individual */
+.contact-item {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Iconița de contact */
+.contact-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+/* Titlul elementului de contact */
+.contact-item h4 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Textul elementului de contact */
+.contact-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   19. SUBSOLUL PAGINII
+   Secțiunea de jos prezentă pe fiecare pagină
+   ============================================================ */
+
+.footer {
+    background-color: var(--gray-900);  /* Fundal aproape negru */
+    color: var(--text-white);           /* Text alb */
+    padding: 3rem 2rem 0;
+}
+
+/* Layout conținut subsol — trei coloane */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Coloane responsive */
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+/* Coloană individuală de subsol */
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Numele magazinului în subsol */
+.footer-section h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+/* Sub-titluri coloane subsol */
+.footer-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+/* Paragrafe și linkuri în subsol */
+.footer-section p,
+.footer-section a {
+    color: rgba(255,255,255,0.7);   /* Alb semi-transparent */
+    font-size: 0.9rem;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Hover pe linkurile din subsol */
+.footer-section a:hover {
+    color: white; /* Mai luminos la hover */
+}
+
+/* Bara de copyright de la baza paginii */
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); /* Linie despărțitoare subtilă */
+    padding: 1rem 0;
+    text-align: center;
+    color: rgba(255,255,255,0.5);   /* Text copyright estompat */
+    font-size: 0.85rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ============================================================
+   20. NOTIFICARE TOAST
+   Popup mic când un produs este adăugat în coș
+   ============================================================ */
+
+.toast {
+    position: fixed;                /* Rămâne în colț indiferent de scroll */
+    bottom: 2rem;                   /* Distanță față de jos */
+    right: 2rem;                    /* Distanță față de dreapta */
+    background-color: var(--success); /* Fundal verde */
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 10000;                 /* Deasupra tuturor, inclusiv modal */
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: slideInRight 0.3s ease; /* Glisare din dreapta */
+}
+
+/* ============================================================
+   21. ANIMAȚII
+   Animații keyframe folosite pe tot site-ul
+   ============================================================ */
+
+/* Fade-in cu ridicare și scalare — folosit pentru cardurile produselor */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;             /* Pornește invizibil */
+        transform: translateY(20px); /* Pornește 20px mai jos */
+    }
+    to {
+        opacity: 1;             /* Ajunge complet vizibil */
+        transform: translateY(0); /* Ajunge la poziția normală */
+    }
+}
+
+/* Scalare la intrare — folosit pentru modal */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);  /* Pornește mai mic */
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);    /* Ajunge la dimensiunea normală */
+        opacity: 1;
+    }
+}
+
+/* Glisare din dreapta — folosit pentru toast */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100px); /* Pornește în afara ecranului, la dreapta */
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);     /* Glisează la poziția normală */
+        opacity: 1;
+    }
+}
+
+/* Decalaje animație fade-in în cascadă pentru cardurile produselor */
+/* nth-child se aplică cardurilor de produs de la 1 la 12 */
+.product-card:nth-child(1)  { animation-delay: 0.05s; }
+.product-card:nth-child(2)  { animation-delay: 0.10s; }
+.product-card:nth-child(3)  { animation-delay: 0.15s; }
+.product-card:nth-child(4)  { animation-delay: 0.20s; }
+.product-card:nth-child(5)  { animation-delay: 0.25s; }
+.product-card:nth-child(6)  { animation-delay: 0.30s; }
+.product-card:nth-child(7)  { animation-delay: 0.35s; }
+.product-card:nth-child(8)  { animation-delay: 0.40s; }
+.product-card:nth-child(9)  { animation-delay: 0.45s; }
+.product-card:nth-child(10) { animation-delay: 0.50s; }
+.product-card:nth-child(11) { animation-delay: 0.55s; }
+.product-card:nth-child(12) { animation-delay: 0.60s; }
+
+/* ============================================================
+   22. DESIGN RESPONSIV
+   Ajustări pentru dispozitive mobile și tablete cu media queries
+   ============================================================ */
+
+/* Ecrane tabletă (lățime maximă 1024px) */
+@media (max-width: 1024px) {
+    /* Reducem dimensiunea titlului hero */
+    .hero-title { font-size: 2.25rem; }
+
+    /* Stivuim layout-ul coș pe verticală */
+    .cart-layout { grid-template-columns: 1fr; }
+
+    /* Stivuim layout-ul checkout pe verticală */
+    .checkout-layout { grid-template-columns: 1fr; }
+
+    /* Stivuim layout-ul paginii despre noi pe verticală */
+    .about-grid { grid-template-columns: 1fr; }
+}
+
+/* Ecrane mobile (lățime maximă 768px) */
+@media (max-width: 768px) {
+    /* Reducem padding-ul orizontal al barei de navigație */
+    .navbar { padding: 0 1rem; gap: 0.5rem; }
+
+    /* Afișăm iconița hamburger pe mobile */
+    .navbar-toggle { display: flex; }
+
+    /* Ascundem linkurile de navigație implicit pe mobile */
+    .navbar-nav {
+        display: none;              /* Ascuns până la apăsarea butonului toggle */
+        position: fixed;            /* Acoperă o parte din ecran */
+        top: var(--navbar-height);  /* Începe sub bara de navigație */
+        left: 0;
+        right: 0;
+        background: var(--bg-white);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;     /* Stivuim linkurile pe verticală */
+        padding: 1rem;
+        z-index: 999;
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Afișăm navigația când clasa "open" este adăugată de JavaScript */
+    .navbar-nav.open { display: flex; }
+
+    /* Ascundem bara de căutare pe mobile */
+    .navbar-search { display: none; }
+
+    /* Hero mai mic pe mobile */
+    .hero {
+        flex-direction: column;     /* Stivuim coloanele pe verticală */
+        text-align: center;
+        padding: 3rem 1.5rem;
+        gap: 2rem;
+    }
+
+    /* Titlu hero mai mic pe mobile */
+    .hero-title { font-size: 1.8rem; }
+
+    /* Emoji mai mic pe mobile */
+    .hero-illustration { font-size: 5rem; }
+
+    /* Centrăm butoanele hero pe mobile */
+    .hero-buttons { justify-content: center; }
+
+    /* Reducem padding-ul secțiunilor */
+    .products-section,
+    .categories-section,
+    .features-section { padding: 2rem 1rem; }
+
+    /* Grilă produse pe o singură coloană pe mobile */
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        /* Minim mai mic pe mobile — 2 produse pe rând */
+    }
+
+    /* Titluri secțiuni mai mici pe mobile */
+    .section-header h2 { font-size: 1.5rem; }
+
+    /* Layout coș pe o singură coloană */
+    .cart-layout { grid-template-columns: 1fr; }
+
+    /* Layout checkout pe o singură coloană */
+    .checkout-layout { grid-template-columns: 1fr; }
+
+    /* Stivuim opțiunile de plată pe verticală */
+    .payment-options { flex-direction: column; }
+
+    /* Stivuim rândurile formularului pe mobile */
+    .form-row { grid-template-columns: 1fr; }
+
+    /* Reducem padding-ul subsolului */
+    .footer { padding: 2rem 1rem 0; }
+
+    /* Toast în colțul din stânga-jos pe ecrane foarte mici */
+    .toast { right: 1rem; bottom: 1rem; }
+}
+
+/* Ecrane foarte mici (lățime maximă 480px) */
+@media (max-width: 480px) {
+    /* Titlu hero și mai mic */
+    .hero-title { font-size: 1.5rem; }
+
+    /* Reducem titlul hero-ului paginii */
+    .page-hero-content h1 { font-size: 1.75rem; }
+
+    /* Butoane pe toată lățimea pe ecrane mici */
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons .btn { width: 100%; justify-content: center; }
+
+    /* Reducem și mai mult padding-ul secțiunilor */
+    .filter-bar { padding: 0.75rem 1rem; }
+
+    /* Un buton de filtrare pe rând pe ecrane foarte mici */
+    .filter-container { gap: 0.35rem; }
+    .filter-btn { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+}

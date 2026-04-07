@@ -1,13 +1,5 @@
-﻿# Directoare generate la build — nu trebuie în repository
-bin/
+﻿bin/
 obj/
-
-# Fișiere solution — nu sunt necesare pe server
 *.sln
-
-# Configurarea VS Code locală
 .vs/
-
-# Fișiere de sistem Windows
 Thumbs.db
-desktop.ini

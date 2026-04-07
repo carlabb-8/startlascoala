@@ -70,23 +70,23 @@ public class ProductsController : Controller
         {
             // --- Varsta 6-10 (Vârsta 6-10) ---
             // Produse potrivite pentru copii mici din școala primară
-            new Product { Id = 201, Name = "Caiet A4 100 file dictando", Price = 8.50m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/notebook.png", Description = "Caiet liniat pentru clasa 1-4" },
+            new Product { Id = 201, Name = "Caiet A4 100 file dictando", Price = 8.50m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/caiet_a4_dictando.png", Description = "Caiet liniat pentru clasa 1-4" },
             new Product { Id = 202, Name = "Set Creioane Colorate 24 buc", Price = 15.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/crayons.png", Description = "Creioane colorate pentru copii mici" },
             new Product { Id = 203, Name = "Plastelina Set 12 culori", Price = 12.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/clay.png", Description = "Plastelina colorata sigura pentru copii" },
-            new Product { Id = 204, Name = "Ghiozdan Primar Colorat", Price = 89.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/backpack.png", Description = "Ghiozdan usor pentru clasele 1-4" },
-            new Product { Id = 205, Name = "Penar cu accesorii incluse", Price = 35.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/pencilcase.png", Description = "Penar complet cu stilou, creioane si guma" },
+            new Product { Id = 204, Name = "Ghiozdan Primar Colorat", Price = 89.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/ghiozdan_primar.png", Description = "Ghiozdan usor pentru clasele 1-4" },
+            new Product { Id = 205, Name = "Penar cu accesorii incluse", Price = 35.00m, Category = "Rechizite", SubCategory = "Varsta 6-10", ImageUrl = "/images/penar_accesorii.jpg", Description = "Penar complet cu stilou, creioane si guma" },
 
             // --- Varsta 10-14 (Vârsta 10-14) ---
             // Produse pentru elevii din gimnaziu
-            new Product { Id = 206, Name = "Caiet A5 cu spirala 80 file", Price = 9.99m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/notebook.png", Description = "Caiet cu spirala pentru gimnaziu" },
-            new Product { Id = 207, Name = "Stilou Parker Jotter", Price = 55.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/pen.png", Description = "Stilou elegant pentru elevi" },
-            new Product { Id = 208, Name = "Set Markere 20 culori", Price = 22.50m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/markers.png", Description = "Markere colorate pentru proiecte scolare" },
-            new Product { Id = 209, Name = "Ghiozdan Ergonomic Gimnaziu", Price = 125.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/backpack.png", Description = "Ghiozdan cu bretele ergonomice" },
-            new Product { Id = 210, Name = "Calculator Stiintific Casio", Price = 79.99m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/calculator.png", Description = "Calculator stiintific pentru gimnaziu si liceu" },
+            new Product { Id = 206, Name = "Caiet A5 cu spirala 80 file", Price = 9.99m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/caiet_a5_spirala.jpg", Description = "Caiet cu spirala pentru gimnaziu" },
+            new Product { Id = 207, Name = "Stilou Parker Jotter", Price = 55.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/stilou_parker.jpg", Description = "Stilou elegant pentru elevi" },
+            new Product { Id = 208, Name = "Set Markere 20 culori", Price = 22.50m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/markere_20_culori.jpg", Description = "Markere colorate pentru proiecte scolare" },
+            new Product { Id = 209, Name = "Ghiozdan Ergonomic Gimnaziu", Price = 125.00m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/ghiozdan_gimnaziu.png", Description = "Ghiozdan cu bretele ergonomice" },
+            new Product { Id = 210, Name = "Calculator Stiintific Casio", Price = 79.99m, Category = "Rechizite", SubCategory = "Varsta 10-14", ImageUrl = "/images/calculator_casio.jpg", Description = "Calculator stiintific pentru gimnaziu si liceu" },
 
             // --- Varsta 14+ (Age 14+) ---
             // Products for high school students
-            new Product { Id = 211, Name = "Agenda Scolara A5", Price = 18.00m, Category = "Rechizite", SubCategory = "Varsta 14+", ImageUrl = "/images/agenda.png", Description = "Agenda organizator pentru liceu" },
+            new Product { Id = 211, Name = "Agenda Scolara A5", Price = 18.00m, Category = "Rechizite", SubCategory = "Varsta 14+", ImageUrl = "/images/agenda_scolara.jpg", Description = "Agenda organizator pentru liceu" },
             new Product { Id = 212, Name = "Set Pixuri Pilot G2 6 buc", Price = 28.00m, Category = "Rechizite", SubCategory = "Varsta 14+", ImageUrl = "/images/pen.png", Description = "Pixuri cu gel pentru scriere fluida" },
             new Product { Id = 213, Name = "Dosar Prezentare A4 50 file", Price = 14.50m, Category = "Rechizite", SubCategory = "Varsta 14+", ImageUrl = "/images/folder.png", Description = "Dosar pentru proiecte si referate" },
             new Product { Id = 214, Name = "Calculator Grafic Texas TI-84", Price = 249.00m, Category = "Rechizite", SubCategory = "Varsta 14+", ImageUrl = "/images/calculator.png", Description = "Calculator grafic pentru matematica avansata" }

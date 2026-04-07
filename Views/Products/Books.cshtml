@@ -176,11 +176,6 @@
     @* This code runs right before </body> via the layout's @await RenderSectionAsync *@
 
     <script>
-        // Aplicăm automat căutarea din URL-ul ?q= la încărcarea paginii
-        document.addEventListener('DOMContentLoaded', function () {
-            applySearchFromUrl();
-        });
-
         // filterCategory() — filters the displayed products by subcategory
         // category: the subcategory string to filter by (e.g. "BAC") or "all"
         // btn: reference to the button that was clicked (to update its active state)

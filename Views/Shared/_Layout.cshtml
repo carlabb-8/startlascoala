@@ -1,203 +1,155 @@
-@* _Layout.cshtml — șablonul de aspect principal partajat de TOATE paginile *@
-@* Fiecare pagină de pe site folosește aceasta ca "înveliș" (header + footer + nav) *@
+﻿@{
 
-@{
-    @* Citim numele controller-ului curent din rutele URL — ex. "Home" sau "Products" *@
-    @* Îl stocăm într-o variabilă pentru a-l reutiliza în link-urile de navigare *@
     var currentCtrl = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
 
-    @* Citim numele acțiunii curente din rută — ex. "Index", "Books", "About" *@
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
-    @* ?? "" înseamnă: dacă valoarea este null, folosim un șir gol în loc *@
 
-    @* Pre-calculăm clasa CSS activă pentru fiecare link de navigare ca variabilă șir *@
-    @* Asta evită punerea literalelor șir ca "Home" în expresii @() *@
-    @* în interiorul atributelor HTML cu ghilimele duble, care ar confunda parserul Razor *@
     var navHome     = (currentCtrl == "Home"     && currentAction == "Index")    ? "active" : "";
     var navBooks    = (currentCtrl == "Products" && currentAction == "Books")    ? "active" : "";
     var navSupplies = (currentCtrl == "Products" && currentAction == "Supplies") ? "active" : "";
     var navAbout    = (currentCtrl == "Home"     && currentAction == "About")    ? "active" : "";
-    @* Fiecare variabilă va fi "active" (dacă suntem pe pagina respectivă) sau "" (pe alte pagini) *@
+
 }
 
 <!DOCTYPE html>
-<!-- DOCTYPE html tells the browser this is a modern HTML5 document -->
 
 <html lang="ro">
-<!-- lang="ro" setează limba documentului ca Română, important pentru accesibilitate -->
 
 <head>
-    <!-- <head> conține metadate și link-uri la fișiere CSS/JS — nu este vizibil pe pagină -->
 
     <meta charset="utf-8" />
-    <!-- charset="utf-8" asigură afișarea corectă a caracterelor speciale (ă, â, î, ș, ț) -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- meta viewport face pagina responsivă pe dispozitivele mobile -->
 
     <title>@ViewData["Title"] - Start la Școală</title>
-    <!-- @ViewData["Title"] introduce titlul paginii curente, setat în fiecare view -->
-    <!-- " - Start la Școală" este adăugat automat la titlul fiecărei pagini -->
 
     <link rel="stylesheet" href="~/css/style.css" />
-    <!-- Link la foaia de stil CSS personalizată din wwwroot/css/style.css -->
-    <!-- ~/css/style.css — tilda (~) înseamnă "pornește din folderul wwwroot" -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Încărcăm biblioteca Font Awesome dintr-un CDN pentru iconițe de coș și căutare -->
 
 </head>
 
 <body>
-    <!-- <body> conține tot ce este vizibil pe ecranul utilizatorului -->
 
-    <!-- ==================== HEADER / NAVBAR ==================== -->
     <header class="navbar">
-        <!-- <header> este zona de sus a paginii care conține bara de navigare -->
-        <!-- class="navbar" aplică stilul nostru de navbar personalizat din style.css -->
 
         <div class="navbar-brand">
-            <!-- navbar-brand este partea stângă a navbar-ului cu logo-ul magazinului -->
 
             <a href="/" class="brand-link">
-                <!-- Click pe logo duce utilizatorul la pagina principală -->
+
                 <img src="~/images/logo.png" alt="Start la Școală" class="brand-logo" />
-                <!-- Logo-ul oficial al magazinului Start la Școală -->
+
             </a>
         </div>
-        <!-- Sfârșitul secțiunii navbar-brand -->
 
         <nav class="navbar-nav" id="mainNav">
-            <!-- <nav> este secțiunea cu link-urile de navigare — id="mainNav" folosit de JS pentru meniu mobil -->
 
             <a href="/" class="nav-link @navHome">
-                <!-- Link către pagina principală (Acasă) -->
-                <!-- @navHome este variabilă Razor: "active" când ești pe această pagină, "" altfel -->
+
                 Acasa
             </a>
 
             <a href="/Products/Books" class="nav-link @navBooks">
-                <!-- Link către pagina cu Cărți -->
+
                 Carti
             </a>
 
             <a href="/Products/Supplies" class="nav-link @navSupplies">
-                <!-- Link către pagina cu Rechizite -->
+
                 Rechizite
             </a>
 
             <a href="/Home/About" class="nav-link @navAbout">
-                <!-- Link către pagina Despre Noi -->
+
                 Despre Noi
             </a>
 
             <a href="/Cart" class="nav-link cart-link" id="cartNavLink">
-                <!-- Link către pagina Coș — are o iconiță specială de coș de cumpărături -->
+
                 <i class="fas fa-shopping-cart"></i>
-                <!-- Iconiță Font Awesome cu coș de cumpărături -->
+
                 <span id="cartCount" class="cart-badge">0</span>
-                <!-- Numărul de produse din coș — actualizat automat de JavaScript -->
+
                 Cos
             </a>
 
         </nav>
-        <!-- Sfârșitul secțiunii navbar-nav -->
 
         <button class="navbar-toggle" id="navbarToggle" onclick="toggleNav()">
-            <!-- Butonul hamburger pentru mobil — vizibil doar pe ecrane mici (CSS gestionează asta) -->
-            <!-- onclick="toggleNav()" apelează JS pentru a afișa/ascunde link-urile pe mobil -->
+
             <span></span>
-            <!-- Trei elemente <span> formează iconița hamburger (trei linii orizontale) -->
+
             <span></span>
             <span></span>
         </button>
 
     </header>
-    <!-- Sfârșitul header-ului de navigare -->
 
-    <!-- ==================== ZONA DE CONȚINUT PRINCIPAL ==================== -->
     <main class="main-content">
-        <!-- <main> conține conținutul unic al fiecărei pagini -->
-        <!-- class="main-content" adaugă spațiere sub navbar-ul fix -->
 
         @RenderBody()
-        <!-- @RenderBody() este o comandă Razor care inserează conținutul din view-urile copil -->
-        <!-- Fiecare pagină specifică (Index.cshtml, Books.cshtml, etc.) completează această zonă -->
 
     </main>
-    <!-- Sfârșitul zonei de conținut principal -->
 
-    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
-        <!-- <footer> este secțiunea de jos a fiecărei pagini -->
 
         <div class="footer-content">
-            <!-- Div-ul wrapper pentru conținutul footer-ului, folosit pentru centrare și aspect -->
 
             <div class="footer-section">
-                <!-- Prima coloană din footer -->
+
                 <h3>Start la Școală</h3>
-                <!-- Numele magazinului afișat în secțiunea de jos a paginii (footer) -->
+
                 <p>Cel mai bun magazin de cărți și rechizite școlare din România.</p>
-                <!-- Scurtă descriere a magazinului nostru -->
+
             </div>
 
             <div class="footer-section">
-                <!-- A doua coloană: link-uri de navigare rapidă -->
+
                 <h4>Navigare Rapida</h4>
-                <!-- Titlu pentru link-urile de navigare rapidă -->
+
                 <a href="/">Acasa</a>
-                <!-- Link către pagina principală -->
+
                 <a href="/Products/Books">Carti</a>
-                <!-- Link către pagina cu cărți -->
+
                 <a href="/Products/Supplies">Rechizite</a>
-                <!-- Link către pagina cu rechizite -->
+
                 <a href="/Home/About">Despre Noi</a>
-                <!-- Link către pagina Despre Noi -->
+
             </div>
 
             <div class="footer-section">
-                <!-- A treia coloană: informații de contact -->
+
                 <h4>Contact</h4>
-                <!-- Titlu pentru secțiunea de contact -->
+
                 <p><i class="fas fa-envelope"></i> contact@startlascoala.ro</p>
-                <!-- Adresa de email a magazinului, afișată cu o iconiță de plic -->
+
                 <p><i class="fas fa-phone"></i> +40 700 000 000</p>
-                <!-- Numărul de telefon al magazinului cu iconiță -->
+
                 <p><i class="fas fa-map-marker-alt"></i> Arad, Romania</p>
-                <!-- Adresa fizică a magazinului cu iconiță de locație -->
+
             </div>
 
         </div>
-        <!-- Sfârșitul secțiunii footer-content -->
 
         <div class="footer-bottom">
-            <!-- Bara de jos a footer-ului cu notița de copyright -->
+
             <p>&copy; 2026 Start la Școală. Toate drepturile rezervate.</p>
-            <!-- &copy; este codul HTML pentru simbolul © de copyright -->
+
         </div>
 
     </footer>
-    <!-- Sfârșitul footer-ului -->
 
-    <!-- ==================== NOTIFICARE TOAST ==================== -->
     <div id="toast" class="toast" style="display:none;">
-        <!-- Toast este un mesaj popup mic care apare când un produs este adăugat în coș -->
-        <!-- style="display:none;" îl ascunde implicit — JavaScript îl afișează când este nevoie -->
+
         <i class="fas fa-check-circle"></i>
-        <!-- Iconiță bifă verde în interiorul popup-ului toast -->
+
         <span id="toastMessage">Produs adaugat in cos!</span>
-        <!-- Mesajul text afișat în toast — JavaScript poate schimba acest text -->
+
     </div>
 
-    <!-- ==================== FIȘIERE JAVASCRIPT ==================== -->
     <script src="~/js/site.js"></script>
-    <!-- Încărcăm fișierul JavaScript personalizat din wwwroot/js/site.js -->
-    <!-- Trebuie să fie la FINALUL paginii pentru ca tot HTML-ul să fie încărcat înainte de JS -->
 
     @await RenderSectionAsync("Scripts", required: false)
-    <!-- @@await RenderSectionAsync("Scripts") — permite paginilor să adauge JavaScript propriu -->
-    <!-- required: false înseamnă că secțiunea este opțională — paginile fără scripturi nu dau eroare -->
 
 </body>
 </html>

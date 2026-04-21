@@ -1,256 +1,194 @@
-@* Books.cshtml — afișează toate cărțile școlare organizate pe categorii *@
-@* Primește o List<Product> de la ProductsController.Books() *@
-
-@* Declarăm tipul modelului — o listă de obiecte Product *@
-@model List<MagazinOnline.Models.Product>
+﻿@model List<MagazinOnline.Models.Product>
 
 @{
-    @* Setăm titlul ferestrelor browserului *@
+
     ViewData["Title"] = "Carti Scolare";
 }
 
-<!-- ==================== BANNER DE SUS ==================== -->
-<!-- Bannerul din partea de sus a paginii Cărți -->
 <section class="page-hero page-hero-books">
 
     <div class="page-hero-content">
-        <!-- Container pentru textul din banner -->
+
         <h1><i class="fas fa-book"></i> Carti Scolare</h1>
-        <!-- Titlul paginii cu iconiță de carte -->
+
         <p>Manuale, culegeri, teste BAC si Evaluare Nationala pentru toti elevii</p>
-        <!-- Subtitlu care descrie ce găsești pe această pagină -->
+
     </div>
 
 </section>
-<!-- Sfârșitul banner-ului -->
 
-<!-- ==================== BARA DE FILTRARE ==================== -->
-<!-- Butoane de filtrare rapidă pentru a sari la o categorie specifică -->
 <section class="filter-bar">
 
     <div class="filter-container">
-        <!-- Container pentru toate butoanele de filtrare -->
 
         <button class="filter-btn active" onclick="filterCategory('all', this)">
-            <!-- Butonul "Toate" — selectat implicit (class="active") -->
-            <!-- onclick apelează filterCategory() cu argumentul 'all' -->
+
             Toate
         </button>
 
         <button class="filter-btn" onclick="filterCategory('Clasa 5-12', this)">
-            <!-- Buton filtru pentru cărțile Clasa 5-12 -->
+
             Clasa 5-12
         </button>
 
         <button class="filter-btn" onclick="filterCategory('Materii', this)">
-            <!-- Buton filtru pentru cărțile pe materii/discipline -->
+
             Materii
         </button>
 
         <button class="filter-btn" onclick="filterCategory('BAC', this)">
-            <!-- Buton filtru pentru cărțile de pregătire BAC -->
+
             BAC
         </button>
 
         <button class="filter-btn" onclick="filterCategory('Evaluare Nationala', this)">
-            <!-- Buton filtru pentru cărțile de Evaluare Națională -->
+
             Evaluare Nationala
         </button>
 
     </div>
-    <!-- End of filter-container -->
 
     <div class="sort-container">
-        <!-- Dropdown pentru sortarea produselor după preț -->
 
         <label for="sortSelect">Sorteaza dupa:</label>
-        <!-- Eticheta pentru dropdown-ul de sortare -->
 
         <select id="sortSelect" class="sort-select" onchange="sortProducts(this.value)">
-            <!-- Dropdown — apelează sortProducts() când opțiunea selectată se schimbă -->
 
             <option value="default">Implicit</option>
-            <!-- Sortare implicită (fără sortare) -->
 
             <option value="price-asc">Pret crescator</option>
-            <!-- Sortează după preț: cel mai mic primul -->
 
             <option value="price-desc">Pret descrescator</option>
-            <!-- Sortează după preț: cel mai mare primul -->
 
             <option value="name-asc">Nume A-Z</option>
-            <!-- Sortează alfabetic după nume A la Z -->
 
         </select>
 
     </div>
-    <!-- Sfârșitul sort-container -->
 
 </section>
-<!-- Sfârșitul barei de filtrare -->
 
-<!-- ==================== GRIDUL DE CĂRȚI ==================== -->
-<!-- Zona principală care conține toate cardurile de cărți -->
 <section class="products-section">
 
     <div id="productsGrid" class="products-grid">
-        <!-- id="productsGrid" este folosit de JavaScript pentru filtrare/căutare -->
 
-        @* Parcurgem fiecare carte din model *@
         @foreach (var product in Model)
         {
-            @* Creăm un card de produs pentru fiecare carte *@
+
             <div class="product-card"
                  data-name="@product.Name.ToLower()"
                  data-category="@product.Category.ToLower()"
                  data-subcategory="@product.SubCategory.ToLower()"
                  data-price="@product.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)">
-                @* atributele data-* stochează informații pentru filtrare/sortare JavaScript *@
-                @* data-price folosește InvariantCulture pentru a stoca "32.99" nu "32,99" *@
 
-                <!-- Imaginea produsului -->
                 <div class="product-image">
-                    <!-- Container pentru imagine -->
+
                     <img src="@product.ImageUrl"
                          alt="@product.Name"
                          onerror="this.src='/images/default.png'" />
-                    @* onerror afișează o imagine implicită dacă URL-ul imaginii reale este invalid *@
 
                     <div class="product-badge">@product.SubCategory</div>
-                    @* Badge cu subcategoria ex. "BAC" sau "Clasa 5-12" *@
+
                 </div>
 
-                <!-- Informațiile text ale produsului -->
                 <div class="product-info">
-                    <!-- Conține nume, descriere, preț și buton -->
 
                     <h3 class="product-name">@product.Name</h3>
-                    @* Titlul produsului *@
 
                     <p class="product-description">@product.Description</p>
-                    @* Scurtă descriere a produsului *@
 
                     <div class="product-footer">
-                        <!-- Rândul de jos: preț și butonul de adăugare în coș -->
 
                         <span class="product-price">@product.Price.ToString("F2") Lei</span>
-                        @* Prețul formatat cu 2 zecimale și unitatea Lei *@
 
                         <button class="btn btn-add-cart"
                                 onclick="addToCart('@Html.Raw(product.Name.Replace("'", "\\'"))', @product.Price.ToString("F2", System.Globalization.CultureInfo.InvariantCulture), '@product.ImageUrl')">
-                            @* Apelează addToCart() JS — scăpăm apostrofele pentru a nu strica JavaScript *@
+
                             <i class="fas fa-cart-plus"></i> Adauga
-                            @* Buton "Adaugă" cu iconiță coș+ *@
+
                         </button>
 
                     </div>
-                    <!-- Sfârșitul product-footer -->
 
                 </div>
-                <!-- Sfârșitul product-info -->
 
             </div>
-            @* Sfârșitul cardului de produs *@
+
         }
-        @* Sfârșitul buclei foreach *@
 
     </div>
-    <!-- Sfârșitul productsGrid -->
 
-    <!-- Mesaj afișat când niciun produs nu corespunde căutării sau filtrului -->
     <div id="noResults" class="no-results" style="display:none;">
-        <!-- style="display:none;" ascunde acest div implicit — JS îl afișează dacă e nevoie -->
+
         <div class="no-results-icon">🔍</div>
-        <!-- Emoji lupă pentru căutare -->
+
         <h3>Niciun produs gasit</h3>
-        <!-- Mesajul "Niciun produs găsit" -->
+
         <p>Incearca alt termen de cautare sau alt filtru.</p>
-        <!-- Text ajutător pentru utilizator -->
+
     </div>
 
 </section>
-<!-- Sfârșitul secțiunii produse -->
 
 @section Scripts {
-    @* @section Scripts — extra JavaScript specific to this page only *@
-    @* This code runs right before </body> via the layout's @await RenderSectionAsync *@
 
     <script>
-        // filterCategory() — filters the displayed products by subcategory
-        // category: the subcategory string to filter by (e.g. "BAC") or "all"
-        // btn: reference to the button that was clicked (to update its active state)
+
         function filterCategory(category, btn) {
-            // Get all product card elements from the page
+
             const cards = document.querySelectorAll('.product-card');
-            // querySelectorAll returns all elements with class 'product-card' as a NodeList
 
-            // Remove 'active' class from ALL filter buttons first
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            // forEach loops through each button and removes the 'active' CSS class
 
-            // Add 'active' class to the button that was just clicked
             btn.classList.add('active');
 
-            // Loop through each product card and show/hide based on the selected category
             cards.forEach(card => {
-                // Get the card's data-subcategory attribute value (set in Razor)
-                const sub = card.getAttribute('data-subcategory');
-                // sub will be something like "bac" or "clasa 5-12" (lowercase from Razor)
 
-                // If "all" is selected OR the subcategory matches the filter...
+                const sub = card.getAttribute('data-subcategory');
+
                 if (category === 'all' || sub.includes(category.toLowerCase())) {
                     card.style.display = '';
-                    // Remove display:none — show this card
+
                 } else {
                     card.style.display = 'none';
-                    // Hide cards that don't match the selected category
+
                 }
             });
 
-            // Check if any cards are visible — if none, show the "no results" message
             checkNoResults();
         }
 
-        // sortProducts() — sorts the product cards by price or name
-        // value: the selected sort option from the dropdown (e.g. "price-asc")
         function sortProducts(value) {
-            // Get the products grid container element
+
             const grid = document.getElementById('productsGrid');
 
-            // Get all product card elements as an Array (not just a NodeList)
             const cards = Array.from(grid.querySelectorAll('.product-card'));
-            // Array.from() converts the NodeList into a real Array so we can sort it
 
-            // Sort the cards array based on the selected option
             cards.sort((a, b) => {
-                // a and b are two product cards being compared
 
                 if (value === 'price-asc' || value === 'price-desc') {
-                    // Read the price from the data-price attribute
+
                     const priceA = parseFloat(a.getAttribute('data-price'));
-                    // parseFloat() converts the string "32.99" into the number 32.99
+
                     const priceB = parseFloat(b.getAttribute('data-price'));
 
-                    // Return negative to put a before b (ascending = smaller first)
                     return value === 'price-asc' ? priceA - priceB : priceB - priceA;
-                    // For descending, flip the subtraction: priceB - priceA
+
                 }
 
                 if (value === 'name-asc') {
-                    // Read the product name from data-name attribute
+
                     const nameA = a.getAttribute('data-name');
                     const nameB = b.getAttribute('data-name');
-                    // localeCompare() compares strings alphabetically
+
                     return nameA.localeCompare(nameB);
                 }
 
-                // Default: no sorting (return 0 = unchanged order)
                 return 0;
             });
 
-            // Re-append the sorted cards back into the grid
             cards.forEach(card => grid.appendChild(card));
-            // forEach loops through the sorted array and moves each card to its new position
+
         }
     </script>
 }

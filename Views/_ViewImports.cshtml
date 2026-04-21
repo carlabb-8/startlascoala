@@ -1,11 +1,5 @@
-@* _ViewImports.cshtml — fișier de "importuri" partajat care se aplică automat TUTUROR view-urilor *@
-@* Simbolul '@' este sintaxă Razor — ne permite să scriem cod C# în fișierele HTML *@
+﻿@using MagazinOnline
 
-@* Importăm namespace-ul MagazinOnline astfel încât toate view-urile să poată folosi modelele Product și CartItem *@
-@using MagazinOnline
-
-@* Importăm namespace-ul Models astfel încât view-urile să poată referi Product, CartItem etc. direct *@
 @using MagazinOnline.Models
 
-@* Importăm TagHelpers din MVC — acestea activează atribute HTML speciale precum asp-action, asp-controller *@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
